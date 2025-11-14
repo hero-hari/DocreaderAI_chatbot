@@ -1,6 +1,6 @@
 // utils/constants.js
-const BACKEND_URL = 'http://localhost:8000'
-//'http://15.206.68.175:8000';
+const BACKEND_URL = 'http://localhost:8000';
+//'http://15.206.68.175:8000'
 
 export const API_ENDPOINTS = {
   CHAT: `${BACKEND_URL}/chat`,                    

@@ -16,6 +16,8 @@ from app.core.rag_engine import rag_engine
 from app.core.auth import get_current_user, check_chat_limit
 from app.core.firebase_service import firebase_service
 from app.api import payment
+from app.api import library 
+from fastapi import BackgroundTasks
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -24,6 +26,10 @@ logger = logging.getLogger(__name__)
 # Initialize FastAPI app
 app = FastAPI(title=settings.TITLE, version=settings.VERSION)
 app.include_router(payment.router, prefix="/api/payment")
+
+# Register routers
+app.include_router(payment.router, prefix="/api/payment")
+app.include_router(library.router, prefix="/api/library", tags=["library"])  # ✅ 
 
 # Add middleware
 add_cors_middleware(app)
@@ -69,7 +75,7 @@ async def upgrade_endpoint():
 # CHAT ROUTES
 # ============================================
 @app.post("/chat", response_model=ChatResponse)
-async def chat_endpoint(request: ChatRequest, current_user: UserInfo = Depends(check_chat_limit)):
+async def chat_endpoint(request: ChatRequest, background_tasks: BackgroundTasks, current_user: UserInfo = Depends(check_chat_limit)):
     return await chat(request, current_user)
 
 @app.post("/debug")

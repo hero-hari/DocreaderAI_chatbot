@@ -506,5 +506,7 @@ class FirebaseService:
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
             return False
+    
+    
 # Global Firebase service instance
 firebase_service = FirebaseService()

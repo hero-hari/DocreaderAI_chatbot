@@ -1,5 +1,6 @@
-import React from "react";
-import { X, MessageSquarePlus, Search, Trash2 } from "lucide-react";
+import React, { useState } from "react";
+import { X, MessageSquarePlus, Search, Trash2, BookOpen } from "lucide-react";
+import Library from "../library/Library";
 
 const SidePanel = ({ 
   isOpen, 
@@ -9,9 +10,11 @@ const SidePanel = ({
   onSelectConversation = null,
   onNewConversation = null,
   onDeleteConversation = null,
-  isLoading = false
+  isLoading = false,
+  getAuthHeaders  // ← Add this prop
 }) => {
   const togglePanel = () => setIsOpen(!isOpen);
+  const [libraryOpen, setLibraryOpen] = useState(false);  // ← Add library state
 
   const handleNewChat = () => {
     console.log("✅ New Chat clicked!");
@@ -56,6 +59,15 @@ const SidePanel = ({
             >
               <MessageSquarePlus className="w-5 h-5 text-blue-600" />
               <span className="font-medium text-blue-700">New Chat</span>
+            </button>
+
+            {/* ✅ Library Button - NEW */}
+            <button 
+              onClick={() => setLibraryOpen(true)}
+              className="flex items-center space-x-3 p-2 rounded-md hover:bg-purple-100 transition-all bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200"
+            >
+              <BookOpen className="w-5 h-5 text-purple-600" />
+              <span className="font-medium text-purple-700">Data Library</span>
             </button>
 
             <button className="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-100 transition-all">
@@ -126,6 +138,15 @@ const SidePanel = ({
         <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-20"
           onClick={togglePanel}
+        />
+      )}
+
+      {/* ✅ Library Modal - NEW */}
+      {libraryOpen && (
+        <Library
+          isOpen={libraryOpen}
+          onClose={() => setLibraryOpen(false)}
+          getAuthHeaders={getAuthHeaders}
         />
       )}
     </>

@@ -54,5 +54,15 @@ class Settings:
 
     RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
     RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
-
+    
+    #File Download path
+    GDRIVE_ROOT_PATH = os.getenv(
+        "GDRIVE_ROOT_PATH",
+        "/content/drive/MyDrive/Data Collection/Preprocessed/New Data"
+    )
+    
+    # Library settings
+    LIBRARY_ENABLED = True
+    FREE_USER_DOWNLOADS_PER_DAY = 999  # Unlimited for testing
+    PREMIUM_USER_DOWNLOADS_PER_DAY = 999  # Unlimited
 settings = Settings()

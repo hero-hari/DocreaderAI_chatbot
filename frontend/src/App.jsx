@@ -224,6 +224,7 @@ const RAGChatbot = () => {
         onNewConversation={handleNewConversation}
         onDeleteConversation={handleDeleteConversation}
         isLoading={conversationsLoading}
+        getAuthHeaders={getAuthHeaders}  
       />
 
       <div

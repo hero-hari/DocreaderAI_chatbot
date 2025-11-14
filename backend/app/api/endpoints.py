@@ -1,6 +1,7 @@
 # api/endpoints.py
 from fastapi import HTTPException, Depends
 import logging
+from fastapi import BackgroundTasks
 from datetime import datetime
 from app.core.firebase_service import firebase_service
 from app.core.auth import SessionManager, AuthManager, get_current_user, check_chat_limit
@@ -29,75 +30,84 @@ async def health_check():
 # ============================================
 # CHAT ENDPOINTS
 # ============================================
-async def chat(request: ChatRequest, current_user: UserInfo):
-    """Main chat endpoint - now saves to Firebase"""
-    try:
-        logger.info(f"Processing question from user {current_user.email}: {request.message}")
-        logger.info(f"Conversation ID: {request.conversation_id}")
-        
-        conversation_id = request.conversation_id if request.conversation_id != 'default' else f"conv_{current_user.google_id}_{int(datetime.utcnow().timestamp())}"
-        logger.info(f"Using conversation ID: {conversation_id}")
-        
-        # Save user message to Firebase
-        user_message_saved = firebase_service.save_message(
-            google_id=current_user.google_id,
-            conversation_id=conversation_id,
-            message_type='user',
-            content=request.message
-        )
-        
-        if user_message_saved:
-            logger.info("User message saved to Firebase successfully")
-        
-        # Get answer using RAG
-        answer, sources = rag_engine.ask_comprehensive_question(request.message)
-        
-        # Increment chat count in Firebase
-        new_count = firebase_service.increment_chat_count(current_user.google_id)
-        remaining_chats = firebase_service.get_remaining_chats(current_user.google_id)
-        
-        logger.info(f"User {current_user.email} chat count: {new_count}, remaining: {remaining_chats}")
-        
-        # Save bot response to Firebase
-        bot_message_saved = firebase_service.save_message(
-            google_id=current_user.google_id,
-            conversation_id=conversation_id,
-            message_type='bot',
-            content=answer,
-            sources=sources
-        )
-        
-        if bot_message_saved:
-            logger.info("Bot response saved to Firebase successfully")
-        
-        # Clean up old conversations (keep only last 3)
-        firebase_service.cleanup_old_conversations(current_user.google_id, keep_count=3)
-        
-        # Format sources for response
-        formatted_sources = []
-        if sources:
-            for src in sources:
-                if isinstance(src, dict):
-                    formatted_sources.append(Source(
-                        document=src.get("document", "Unknown"),
-                        content=src.get("content", ""),
-                        score=src.get("score")
-                    ))
-        
-        # ✅ ADD remaining_chats to response!
-        return ChatResponse(
-            response=answer,
-            sources=formatted_sources,
-            conversation_id=conversation_id,
-            remaining_chats=remaining_chats,  # ✅ ADD THIS!
-            chat_count=new_count  # ✅ ADD THIS TOO!
-        )
-        
-    except Exception as e:
-        logger.error(f"Error processing chat request: {str(e)}")
-        import traceback
-        logger.error(f"Full traceback: {traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
+# api/endpoints.py
+
+# Change this line:
+
+
+# To this:
+async def chat(request: ChatRequest, current_user: UserInfo, background_tasks: BackgroundTasks):
+        """Main chat endpoint - now saves to Firebase"""
+        try:
+            logger.info(f"Processing question from user {current_user.email}: {request.message}")
+            logger.info(f"Conversation ID: {request.conversation_id}")
+            
+            conversation_id = request.conversation_id if request.conversation_id != 'default' else f"conv_{current_user.google_id}_{int(datetime.utcnow().timestamp())}"
+            logger.info(f"Using conversation ID: {conversation_id}")
+            
+            # Save user message to Firebase
+            user_message_saved = firebase_service.save_message(
+                google_id=current_user.google_id,
+                conversation_id=conversation_id,
+                message_type='user',
+                content=request.message
+            )
+            
+            if user_message_saved:
+                logger.info("User message saved to Firebase successfully")
+            
+            # Get answer using RAG
+            answer, sources = rag_engine.ask_comprehensive_question(request.message)
+            
+            # Increment chat count in Firebase
+            new_count = firebase_service.increment_chat_count(current_user.google_id)
+            remaining_chats = firebase_service.get_remaining_chats(current_user.google_id)
+            
+            logger.info(f"User {current_user.email} chat count: {new_count}, remaining: {remaining_chats}")
+            
+            # Save bot response to Firebase
+            bot_message_saved = firebase_service.save_message(
+                google_id=current_user.google_id,
+                conversation_id=conversation_id,
+                message_type='bot',
+                content=answer,
+                sources=sources
+            )
+            
+            if bot_message_saved:
+                logger.info("Bot response saved to Firebase successfully")
+            
+            # ✅ Clean up old conversations in background (now works!)
+            background_tasks.add_task(
+                firebase_service.cleanup_old_conversations,
+                current_user.google_id,
+                keep_count=3
+            )
+            
+            # Format sources for response
+            formatted_sources = []
+            if sources:
+                for src in sources:
+                    if isinstance(src, dict):
+                        formatted_sources.append(Source(
+                            document=src.get("document", "Unknown"),
+                            content=src.get("content", ""),
+                            score=src.get("score")
+                        ))
+            
+            return ChatResponse(
+                response=answer,
+                sources=formatted_sources,
+                conversation_id=conversation_id,
+                remaining_chats=remaining_chats,
+                chat_count=new_count
+            )
+            
+        except Exception as e:
+            logger.error(f"Error processing chat request: {str(e)}")
+            import traceback
+            logger.error(f"Full traceback: {traceback.format_exc()}")
+            raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
 
 
 async def debug_question(request: ChatRequest, current_user: UserInfo = Depends(get_current_user)):
