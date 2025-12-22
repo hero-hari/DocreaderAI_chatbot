@@ -1,8 +1,16 @@
 // components/library/Library.jsx
 import React, { useState, useEffect } from 'react';
-import { Search, Download, X, Grid, List, Crown } from 'lucide-react';
+import { Search, Download, X, Grid, List, Crown, ChevronDown, ChevronUp } from 'lucide-react';
 
-const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgradeModal }) => {
+const Library = ({ 
+  isOpen, 
+  onClose, 
+  getAuthHeaders, 
+  user, 
+  chatLimits, 
+  onOpenUpgradeModal,
+  onSendQuestion  // ← NEW
+}) => {
   const [domains, setDomains] = useState([]);
   const [filteredDomains, setFilteredDomains] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,8 +20,8 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
   const [loading, setLoading] = useState(true);
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
+  const [expandedCards, setExpandedCards] = useState(new Set());  // ← NEW
 
-  // ✅ Check if user is premium
   const isPremium = chatLimits?.remaining === -1;
 
   // Fetch domains on mount
@@ -65,8 +73,33 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
     setFilteredDomains(filtered);
   };
 
+  // ← NEW: Toggle sample questions
+  const toggleQuestions = (domainId) => {
+    setExpandedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(domainId)) {
+        newSet.delete(domainId);
+      } else {
+        newSet.add(domainId);
+      }
+      return newSet;
+    });
+  };
+
+  /// ← NEW: Handle question click
+  const handleQuestionClick = (question) => {
+  console.log('Question clicked:', question);
+  
+  // ✅ Close Library modal FIRST
+  onClose();
+  
+  // ✅ Immediately send message (no delay)
+  if (onSendQuestion) {
+    onSendQuestion(question);
+  }
+ };
+ 
   const handleDomainClick = (domain) => {
-    // ✅ Check premium before opening download modal
     if (!isPremium) {
       onOpenUpgradeModal();
       return;
@@ -76,11 +109,9 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
     setDownloadModalOpen(true);
   };
 
-  // Open Google Drive directly (only for premium users)
   const handleDownload = (type) => {
     if (!selectedDomain) return;
 
-    // ✅ Double-check premium status
     if (!isPremium) {
       setDownloadModalOpen(false);
       onOpenUpgradeModal();
@@ -119,7 +150,6 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
     }
   };
 
-  // Track downloads in backend
   const trackDownload = async (domainId, type) => {
     try {
       await fetch(`http://localhost:8000/api/library/track-download`, {
@@ -150,7 +180,6 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
               <h2 className="text-3xl font-bold bg-gradient-to-r from-[#5ac8fa] to-[#007aff] bg-clip-text text-transparent">
                 📚 Data Library
               </h2>
-              {/* ✅ Premium Badge */}
               {!isPremium && (
                 <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-semibold rounded-full flex items-center gap-1 shadow-md">
                   <Crown size={14} />
@@ -237,6 +266,9 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
                   domain={domain} 
                   onClick={() => handleDomainClick(domain)}
                   isPremium={isPremium}
+                  isExpanded={expandedCards.has(domain.id)}
+                  onToggleQuestions={() => toggleQuestions(domain.id)}
+                  onQuestionClick={handleQuestionClick}
                 />
               ))}
             </div>
@@ -248,6 +280,9 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
                   domain={domain} 
                   onClick={() => handleDomainClick(domain)}
                   isPremium={isPremium}
+                  isExpanded={expandedCards.has(domain.id)}
+                  onToggleQuestions={() => toggleQuestions(domain.id)}
+                  onQuestionClick={handleQuestionClick}
                 />
               ))}
             </div>
@@ -255,7 +290,7 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
         </div>
       </div>
 
-      {/* Download Modal (only for premium users) */}
+      {/* Download Modal */}
       {downloadModalOpen && selectedDomain && isPremium && (
         <DownloadModal
           domain={selectedDomain}
@@ -267,8 +302,8 @@ const Library = ({ isOpen, onClose, getAuthHeaders, user, chatLimits, onOpenUpgr
   );
 };
 
-// ✅ Updated Domain Card Component
-const DomainCard = ({ domain, onClick, isPremium }) => {
+// ✅ Updated Domain Card Component with Sample Questions
+const DomainCard = ({ domain, onClick, isPremium, isExpanded, onToggleQuestions, onQuestionClick }) => {
   const categoryColors = {
     'Government': 'bg-blue-500',
     'Economic': 'bg-green-500',
@@ -282,86 +317,168 @@ const DomainCard = ({ domain, onClick, isPremium }) => {
     'Entertainment': 'bg-indigo-500'
   };
 
+  const hasSampleQuestions = domain.sample_questions && domain.sample_questions.length > 0;
+
   return (
     <div
-      onClick={onClick}
-      className="rounded-xl p-4 cursor-pointer transition-all hover:shadow-xl hover:scale-[1.02]
+      className="rounded-xl p-4 transition-all hover:shadow-xl 
                  bg-white/70 border border-white/60 
-                 hover:border-[#007aff] backdrop-blur-xl"
+                 hover:border-[#007aff] backdrop-blur-xl flex flex-col"
     >
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="text-black font-semibold text-lg">{domain.name}</h3>
-        <span className={`px-2 py-1 rounded text-xs text-white shadow-sm ${categoryColors[domain.category] || 'bg-gray-500'}`}>
-          {domain.category}
-        </span>
-      </div>
-
-      <p className="text-black/70 text-sm mb-3 line-clamp-2">{domain.description}</p>
-
-      <div className="flex items-center justify-between text-sm">
-        <span className="text-black/60">{domain.file_count}</span>
-        <span className="text-black/60">{domain.total_size_readable}</span>
-      </div>
-
-      {/* ✅ Conditional Button */}
-      {isPremium ? (
-        <button className="mt-3 w-full bg-gradient-to-r from-[#5ac8fa] to-[#007aff] 
-                           hover:from-[#007aff] hover:to-[#005bbb]
-                           text-white py-2 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md">
-          <Download size={16} />
-          Download
-        </button>
-      ) : (
-        <button className="mt-3 w-full bg-gradient-to-r from-yellow-400 to-orange-500
-                           hover:from-yellow-500 hover:to-orange-600
-                           text-white py-2 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md">
-          <Crown size={16} />
-          Upgrade to Download
-        </button>
-      )}
-    </div>
-  );
-};
-
-// ✅ Updated Domain List Item Component
-const DomainListItem = ({ domain, onClick, isPremium }) => {
-  return (
-    <div
-      onClick={onClick}
-      className="rounded-xl p-4 border border-white/60 bg-white/70 backdrop-blur-xl
-                 hover:border-[#007aff] cursor-pointer transition-all flex items-center justify-between"
-    >
-      <div className="flex-1">
-        <div className="flex items-center gap-3">
-          <h3 className="text-black font-semibold">{domain.name}</h3>
-          <span className="px-2 py-1 bg-white/80 rounded text-xs text-black/70 border border-white/70">
+      {/* Card Header - Clickable for download */}
+      <div 
+        onClick={onClick}
+        className="cursor-pointer"
+      >
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-black font-semibold text-lg">{domain.name}</h3>
+          <span className={`px-2 py-1 rounded text-xs text-white shadow-sm ${categoryColors[domain.category] || 'bg-gray-500'}`}>
             {domain.category}
           </span>
         </div>
-        <p className="text-black/70 text-sm mt-1">{domain.description}</p>
+
+        <p className="text-black/70 text-sm mb-3 line-clamp-2">{domain.description}</p>
+
+        <div className="flex items-center justify-between text-sm mb-3">
+          <span className="text-black/60">{domain.file_count}</span>
+          <span className="text-black/60">{domain.total_size_readable}</span>
+        </div>
       </div>
 
-      <div className="flex items-center gap-6 ml-4">
-        <div className="text-right">
-          <div className="text-black font-medium">{domain.file_count}</div>
-          <div className="text-black/60 text-sm">{domain.total_size_readable}</div>
+      {/* Sample Questions Section - NOT clickable for download */}
+      {hasSampleQuestions && (
+        <div className="border-t border-white/30 pt-3 mb-3">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleQuestions();
+            }}
+            className="w-full text-sm text-black/70 hover:text-black flex items-center justify-between transition-colors"
+          >
+            <span className="flex items-center gap-2">
+              📝 Sample Questions ({domain.sample_questions.length})
+            </span>
+            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+          
+          {isExpanded && (
+            <div className="mt-2 space-y-2 max-h-32 overflow-y-auto">
+              {domain.sample_questions.map((q, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onQuestionClick(q);
+                  }}
+                  className="text-xs text-left text-blue-600 hover:text-blue-800 
+                             hover:underline block w-full p-1 rounded hover:bg-blue-50/50 transition-colors"
+                >
+                  • {q}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
+      )}
 
-        {/* ✅ Conditional Button */}
+      {/* Download Button */}
+      <div onClick={onClick} className="cursor-pointer">
         {isPremium ? (
-          <button className="bg-gradient-to-r from-[#5ac8fa] to-[#007aff] hover:from-[#007aff] hover:to-[#005bbb]
-                             text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2 shadow-md">
+          <button className="w-full bg-gradient-to-r from-[#5ac8fa] to-[#007aff] 
+                             hover:from-[#007aff] hover:to-[#005bbb]
+                             text-white py-2 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md">
             <Download size={16} />
             Download
           </button>
         ) : (
-          <button className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600
-                             text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2 shadow-md">
+          <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500
+                             hover:from-yellow-500 hover:to-orange-600
+                             text-white py-2 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md">
             <Crown size={16} />
             Upgrade to Download
           </button>
         )}
       </div>
+    </div>
+  );
+};
+
+// ✅ Updated Domain List Item Component with Sample Questions
+const DomainListItem = ({ domain, onClick, isPremium, isExpanded, onToggleQuestions, onQuestionClick }) => {
+  const hasSampleQuestions = domain.sample_questions && domain.sample_questions.length > 0;
+
+  return (
+    <div className="rounded-xl p-4 border border-white/60 bg-white/70 backdrop-blur-xl
+                    hover:border-[#007aff] transition-all flex flex-col gap-3">
+      {/* Main content - Clickable for download */}
+      <div onClick={onClick} className="cursor-pointer flex items-start justify-between">
+        <div className="flex-1">
+          <div className="flex items-center gap-3">
+            <h3 className="text-black font-semibold">{domain.name}</h3>
+            <span className="px-2 py-1 bg-white/80 rounded text-xs text-black/70 border border-white/70">
+              {domain.category}
+            </span>
+          </div>
+          <p className="text-black/70 text-sm mt-1">{domain.description}</p>
+        </div>
+
+        <div className="flex items-center gap-6 ml-4">
+          <div className="text-right">
+            <div className="text-black font-medium">{domain.file_count}</div>
+            <div className="text-black/60 text-sm">{domain.total_size_readable}</div>
+          </div>
+
+          {isPremium ? (
+            <button className="bg-gradient-to-r from-[#5ac8fa] to-[#007aff] hover:from-[#007aff] hover:to-[#005bbb]
+                               text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2 shadow-md whitespace-nowrap">
+              <Download size={16} />
+              Download
+            </button>
+          ) : (
+            <button className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600
+                               text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2 shadow-md whitespace-nowrap">
+              <Crown size={16} />
+              Upgrade
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Sample Questions Section - NOT clickable for download */}
+      {hasSampleQuestions && (
+        <div className="border-t border-white/30 pt-3">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleQuestions();
+            }}
+            className="w-full text-sm text-black/70 hover:text-black flex items-center justify-between transition-colors"
+          >
+            <span className="flex items-center gap-2">
+              📝 Sample Questions ({domain.sample_questions.length})
+            </span>
+            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+          
+          {isExpanded && (
+            <div className="mt-2 space-y-2">
+              {domain.sample_questions.map((q, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onQuestionClick(q);
+                  }}
+                  className="text-sm text-left text-blue-600 hover:text-blue-800 
+                             hover:underline block w-full p-1 rounded hover:bg-blue-50/50 transition-colors"
+                >
+                  • {q}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

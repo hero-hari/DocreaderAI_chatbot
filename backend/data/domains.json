@@ -4,595 +4,1090 @@
       "id": "newsmedia",
       "name": "News & Media",
       "description": "Articles, summaries from major news outlets",
-      "category": "Media"
+      "category": "Media",
+      "sample_questions": [
+        "Summarize the key news stories discussed in the articles.",
+        "List the major topics frequently covered by the news sources in this dataset.",
+        "Explain how coverage of a specific event or issue is described across different articles."
+      ]
     },
     {
       "id": "sports",
       "name": "Sports",
       "description": "IPL stats, match data, cricket analytics",
-      "category": "Entertainment"
+      "category": "Entertainment",
+      "sample_questions": [
+        "Summarize the major IPL seasons or tournaments described in the documents.",
+        "List key players and their performances as discussed in the text.",
+        "Explain important match highlights or turning points mentioned in the dataset."
+      ]
     },
     {
       "id": "elections",
       "name": "Elections",
       "description": "Voter statistics, election results, and constituency data from ECI",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main factors influencing election outcomes described in the documents.",
+        "List major political parties or alliances mentioned and their roles in recent elections.",
+        "Explain how voter turnout trends are described across different elections in the dataset."
+      ]
     },
     {
       "id": "agriculture",
       "name": "Agriculture",
       "description": "Crop yield data, agricultural prices, and farming statistics",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main crops and farming practices discussed in the documents.",
+        "List key challenges faced by farmers as described in the dataset.",
+        "Explain how changes in crop yields or prices are described over time in the texts."
+      ]
     },
     {
       "id": "healthcare",
       "name": "Healthcare",
       "description": "Hospital statistics, disease data, and public health information",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the major public health issues described in the documents.",
+        "List important healthcare schemes, programs, or policies mentioned in the text.",
+        "Explain how access to healthcare services differs across regions in the dataset."
+      ]
     },
     {
       "id": "education",
       "name": "Education",
       "description": "Literacy rates, school statistics, educational infrastructure data",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the key educational trends or issues discussed in the documents.",
+        "List the different types of schools or institutions mentioned and their characteristics.",
+        "Explain how literacy or enrollment patterns are described across regions."
+      ]
     },
     {
       "id": "traffic",
       "name": "Traffic",
       "description": "Road usage patterns, toll collection, traffic management data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main traffic patterns or congestion issues described in the dataset.",
+        "List important roads, corridors, or toll routes discussed in the text.",
+        "Explain the common traffic management measures or policies mentioned in the documents."
+      ]
     },
     {
       "id": "economy",
       "name": "Economy",
       "description": "GDP statistics, inflation rates, macroeconomic indicators",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the overall economic trends described in the documents.",
+        "List key macroeconomic indicators mentioned and how they are changing.",
+        "Explain how different sectors of the economy are portrayed in the dataset."
+      ]
     },
     {
       "id": "finance",
       "name": "Finance",
       "description": "UPI transactions, banking data, financial services statistics",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the growth of digital payments or UPI usage described in the text.",
+        "List key statistics or patterns related to banking and financial services.",
+        "Explain how the expansion of digital finance is described in the documents."
+      ]
     },
     {
       "id": "languagenlp",
       "name": "Language/NLP",
       "description": "Text corpora, translations, linguistic datasets for Indian languages",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the different language resources or corpora described in the dataset.",
+        "List the Indian languages and NLP tasks mentioned in the documents.",
+        "Explain how translation or language processing challenges are described in the text."
+      ]
     },
     {
       "id": "weather",
       "name": "Weather",
       "description": "Rainfall data, temperature records, meteorological information",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the major weather patterns or climate trends described in the documents.",
+        "List key statistics related to rainfall or temperature mentioned in the text.",
+        "Explain how extreme weather events are described in the dataset."
+      ]
     },
     {
       "id": "census",
       "name": "Census",
       "description": "Population demographics, household surveys, demographic statistics",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main demographic patterns or trends described in the documents.",
+        "List important population characteristics such as age, gender, or location mentioned in the text.",
+        "Explain how urban and rural population differences are described in the dataset."
+      ]
     },
     {
       "id": "gisgeospatial",
       "name": "GIS/Geospatial",
       "description": "Village maps, city boundaries, spatial geographic data",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the types of geographic areas or boundaries described in the documents.",
+        "List different spatial regions such as villages, cities, or districts mentioned in the text.",
+        "Explain how geographic or spatial patterns are described in the dataset."
+      ]
     },
     {
       "id": "crimelaw",
       "name": "Crime & Law",
       "description": "FIR data, crime statistics, law enforcement records",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main crime trends or issues discussed in the documents.",
+        "List major categories of crimes or offences described in the dataset.",
+        "Explain how law enforcement actions or responses are portrayed in the text."
+      ]
     },
     {
       "id": "covid19",
       "name": "COVID-19",
       "description": "Pandemic cases, vaccination statistics, health emergency data",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the key phases or waves of the COVID-19 pandemic described in the documents.",
+        "List major impacts of COVID-19 on health or society mentioned in the dataset.",
+        "Explain how vaccination efforts or outcomes are described in the text."
+      ]
     },
     {
       "id": "transport",
       "name": "Transport",
       "description": "Railway statistics, metro data, public transportation systems",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main transport systems or projects discussed in the documents.",
+        "List key statistics or observations about rail, metro, or bus transport mentioned in the text.",
+        "Explain how public transportation usage or challenges are described in the dataset."
+      ]
     },
     {
       "id": "environment",
       "name": "Environment",
       "description": "Pollution levels, air quality, water quality monitoring data",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the major environmental issues discussed in the documents.",
+        "List key pollutants, indicators, or environmental metrics mentioned in the text.",
+        "Explain how changes in air or water quality are described in the dataset."
+      ]
     },
     {
       "id": "cultureheritage",
       "name": "Culture & Heritage",
       "description": "Archaeological sites, monuments, cultural preservation data",
-      "category": "Cultural"
+      "category": "Cultural",
+      "sample_questions": [
+        "Summarize the important cultural or heritage sites described in the documents.",
+        "List major monuments or archaeological locations mentioned in the text.",
+        "Explain how cultural preservation efforts are described in the dataset."
+      ]
     },
     {
       "id": "tourism",
       "name": "Tourism",
       "description": "Tourist arrivals, hotel occupancy, tourism industry statistics",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main tourism trends or patterns described in the documents.",
+        "List key destinations or regions highlighted for tourism in the dataset.",
+        "Explain how tourist arrivals or demand patterns are described in the text."
+      ]
     },
     {
       "id": "waterresources",
       "name": "Water Resources",
       "description": "River flow data, reservoir levels, water management systems",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the major water resource issues or themes discussed in the documents.",
+        "List important rivers, reservoirs, or water systems mentioned in the text.",
+        "Explain how water availability or management challenges are described in the dataset."
+      ]
     },
     {
       "id": "electricity",
       "name": "Electricity",
       "description": "Power consumption, grid access, electricity distribution data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main electricity or power sector issues described in the documents.",
+        "List key statistics or observations about electricity consumption or access mentioned in the text.",
+        "Explain how electrification or grid expansion is described in the dataset."
+      ]
     },
     {
       "id": "jobsskills",
       "name": "Jobs & Skills",
       "description": "Employment statistics, wage data, skill development programs",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main employment or labor market trends described in the documents.",
+        "List key job categories, sectors, or skill programs mentioned in the text.",
+        "Explain how unemployment or skill gaps are described in the dataset."
+      ]
     },
     {
       "id": "politics",
       "name": "Politics",
       "description": "Political party information, candidate details, electoral data",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main political developments or themes discussed in the documents.",
+        "List major political parties, leaders, or alliances mentioned in the text.",
+        "Explain how political competition or campaigning is described in the dataset."
+      ]
     },
     {
       "id": "socialmedia",
       "name": "Social Media",
       "description": "Social platform analytics, digital engagement metrics",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main social media usage patterns described in the documents.",
+        "List major platforms or engagement metrics mentioned in the dataset.",
+        "Explain how digital engagement or online behavior is described in the text."
+      ]
     },
     {
       "id": "ecommerce",
       "name": "E-commerce",
       "description": "Product reviews, ratings, online marketplace analytics",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the key themes about online shopping or marketplaces described in the documents.",
+        "List major product categories or review patterns mentioned in the text.",
+        "Explain how customer behavior or rating trends are described in the dataset."
+      ]
     },
     {
       "id": "banking",
       "name": "Banking",
       "description": "IFSC codes, branch information, banking infrastructure data",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main banking infrastructure themes described in the documents.",
+        "List different types of bank branches or services mentioned in the dataset.",
+        "Explain how banking access or regional distribution is described in the text."
+      ]
     },
     {
       "id": "realestate",
       "name": "Real Estate",
       "description": "Property prices, rental rates, real estate market trends",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main real estate market trends described in the documents.",
+        "List different types of properties or locations discussed in the text.",
+        "Explain how property prices or rental patterns are described in the dataset."
+      ]
     },
     {
       "id": "energy",
       "name": "Energy",
       "description": "Solar power, renewable energy, power grid infrastructure",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the key developments in renewable energy described in the documents.",
+        "List major energy sources, projects, or initiatives mentioned in the text.",
+        "Explain how the transition to renewable energy is described in the dataset."
+      ]
     },
     {
       "id": "judiciary",
       "name": "Judiciary",
       "description": "Court cases, legal proceedings, judicial system data",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main judicial or legal issues discussed in the documents.",
+        "List different types of courts or cases mentioned in the dataset.",
+        "Explain how case backlogs or judicial efficiency are described in the text."
+      ]
     },
     {
       "id": "welfareschemes",
       "name": "Welfare Schemes",
       "description": "Government welfare programs, benefit distribution, social schemes",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the key welfare schemes or programs described in the documents.",
+        "List different beneficiary groups or target populations mentioned in the text.",
+        "Explain how scheme implementation or impact is described in the dataset."
+      ]
     },
     {
       "id": "foodnutrition",
       "name": "Food & Nutrition",
       "description": "Meal programs, malnutrition statistics, food security data",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main food and nutrition issues discussed in the documents.",
+        "List important nutrition programs or interventions mentioned in the text.",
+        "Explain how malnutrition or food security challenges are described in the dataset."
+      ]
     },
     {
       "id": "startups",
       "name": "Startups",
       "description": "Startup registrations, funding data, entrepreneurship statistics",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main startup or entrepreneurship themes described in the documents.",
+        "List different sectors or regions where startup activity is highlighted in the text.",
+        "Explain how funding patterns or challenges for startups are described in the dataset."
+      ]
     },
     {
       "id": "msmes",
       "name": "MSMEs",
       "description": "Small business statistics, micro enterprise data",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main issues faced by MSMEs described in the documents.",
+        "List different categories or types of MSMEs mentioned in the text.",
+        "Explain how MSME growth or challenges are described in the dataset."
+      ]
     },
     {
       "id": "industrialstats",
       "name": "Industrial Stats",
       "description": "Manufacturing data, export statistics, industrial production",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main industrial or manufacturing trends discussed in the documents.",
+        "List key industries or products highlighted in the text.",
+        "Explain how industrial growth or export performance is described in the dataset."
+      ]
     },
     {
       "id": "animalhusbandry",
       "name": "Animal Husbandry",
       "description": "Livestock statistics, dairy production, animal welfare data",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main livestock or dairy themes described in the documents.",
+        "List important livestock types, breeds, or regions mentioned in the text.",
+        "Explain how trends in dairy production or animal welfare are described in the dataset."
+      ]
     },
     {
       "id": "fisheries",
       "name": "Fisheries",
       "description": "Inland and marine catch data, fishing industry statistics",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main fisheries or fishing industry themes described in the documents.",
+        "List important fishing regions, species, or practices mentioned in the text.",
+        "Explain how inland and marine catch trends are described in the dataset."
+      ]
     },
     {
       "id": "tribaldata",
       "name": "Tribal Data",
       "description": "Scheduled tribe demographics, tribal development indicators",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main tribal communities or regions described in the documents.",
+        "List key indicators of tribal development or welfare mentioned in the text.",
+        "Explain how challenges faced by scheduled tribes are described in the dataset."
+      ]
     },
     {
       "id": "womenchildren",
       "name": "Women & Children",
       "description": "Gender statistics, child welfare, ICDS program data",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main gender and child welfare issues discussed in the documents.",
+        "List important programs or schemes related to women and children mentioned in the text.",
+        "Explain how gender gaps or child welfare challenges are described in the dataset."
+      ]
     },
     {
       "id": "migration",
       "name": "Migration",
       "description": "Interstate migration patterns, population movement data",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main migration patterns or flows described in the documents.",
+        "List key source and destination states or regions mentioned in the text.",
+        "Explain how the impacts of migration are described in the dataset."
+      ]
     },
     {
       "id": "housing",
       "name": "Housing",
       "description": "Urban housing statistics, PMAY scheme data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main housing issues or themes described in the documents.",
+        "List important housing schemes or initiatives mentioned in the text.",
+        "Explain how housing shortages or improvements are described in the dataset."
+      ]
     },
     {
       "id": "infrastructure",
       "name": "Infrastructure",
       "description": "Road networks, bridges, public infrastructure development",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main infrastructure projects or themes described in the documents.",
+        "List key types of infrastructure such as roads, bridges, or public facilities mentioned in the text.",
+        "Explain how infrastructure development or gaps are described in the dataset."
+      ]
     },
     {
       "id": "oilgas",
       "name": "Oil & Gas",
       "description": "Refinery statistics, petroleum consumption, energy data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main oil and gas sector themes described in the documents.",
+        "List key refineries, products, or regions mentioned in the text.",
+        "Explain how petroleum consumption or production trends are described in the dataset."
+      ]
     },
     {
       "id": "telecom",
       "name": "Telecom",
       "description": "Mobile subscribers, internet penetration, telecom statistics",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main telecom growth or usage patterns described in the documents.",
+        "List key indicators such as mobile subscribers or internet penetration mentioned in the text.",
+        "Explain how connectivity gaps or improvements are described in the dataset."
+      ]
     },
     {
       "id": "bankingfraud",
       "name": "Banking Fraud",
       "description": "ATM fraud, UPI fraud cases, financial crime statistics",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main types of banking fraud discussed in the documents.",
+        "List major patterns or statistics related to ATM or UPI fraud mentioned in the text.",
+        "Explain how financial crime trends or preventive measures are described in the dataset."
+      ]
     },
     {
       "id": "aviation",
       "name": "Aviation",
       "description": "Flight statistics, airport operations, air traffic data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main aviation trends or issues described in the documents.",
+        "List major airports, routes, or traffic statistics mentioned in the text.",
+        "Explain how passenger or cargo air traffic patterns are described in the dataset."
+      ]
     },
     {
       "id": "maritime",
       "name": "Maritime",
       "description": "Port traffic statistics, shipping data, maritime operations",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main maritime or port-related themes described in the documents.",
+        "List key ports, shipping routes, or traffic indicators mentioned in the text.",
+        "Explain how trade or maritime operations are described in the dataset."
+      ]
     },
     {
       "id": "labourlaws",
       "name": "Labour Laws",
       "description": "Wage statistics, labor violations, employment regulations",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main labor law or worker rights issues discussed in the documents.",
+        "List key wage, regulation, or violation themes mentioned in the text.",
+        "Explain how enforcement of labor laws or compliance challenges are described in the dataset."
+      ]
     },
     {
       "id": "forestwildlife",
       "name": "Forest & Wildlife",
       "description": "Forest cover data, biodiversity statistics, conservation efforts",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the main forest and wildlife conservation themes described in the documents.",
+        "List key species, protected areas, or forest regions mentioned in the text.",
+        "Explain how changes in forest cover or biodiversity are described in the dataset."
+      ]
     },
     {
       "id": "disastermanagement",
       "name": "Disaster Management",
       "description": "Natural disaster data, emergency response statistics",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main types of disasters or events described in the documents.",
+        "List important response measures, agencies, or programs mentioned in the text.",
+        "Explain how preparedness or recovery efforts are described in the dataset."
+      ]
     },
     {
       "id": "sciencetech",
       "name": "Science & Tech",
       "description": "Research data, patents, ISRO missions, scientific achievements",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main scientific or technological achievements described in the documents.",
+        "List key research areas, missions, or innovations mentioned in the text.",
+        "Explain how scientific progress or challenges are described in the dataset."
+      ]
     },
     {
       "id": "spacemissions",
       "name": "Space Missions",
       "description": "Satellite launches, space research, ISRO mission data",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main space missions or programs described in the documents.",
+        "List important satellites, launches, or mission objectives mentioned in the text.",
+        "Explain how outcomes of key space missions are described in the dataset."
+      ]
     },
     {
       "id": "cybersecurity",
       "name": "Cybersecurity",
       "description": "Security incidents, cyber threats, digital safety statistics",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main cybersecurity threats or incidents discussed in the documents.",
+        "List important types of attacks, vulnerabilities, or risks mentioned in the text.",
+        "Explain how cybersecurity measures or responses are described in the dataset."
+      ]
     },
     {
       "id": "urbandevelopment",
       "name": "Urban Development",
       "description": "Smart cities initiatives, urban planning, city development",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main urban development or smart city initiatives described in the documents.",
+        "List key urban planning projects or strategies mentioned in the text.",
+        "Explain how changes in city development or infrastructure are described in the dataset."
+      ]
     },
     {
       "id": "publictransport",
       "name": "Public Transport",
       "description": "Bus routes, public transportation systems, ridership data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main public transport systems or services described in the documents.",
+        "List key bus routes or public transport corridors mentioned in the text.",
+        "Explain how ridership patterns or usage trends are described in the dataset."
+      ]
     },
     {
       "id": "digitalindia",
       "name": "Digital India",
       "description": "Digital services adoption, e-governance initiatives",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main Digital India or e-governance initiatives described in the documents.",
+        "List key digital services, platforms, or schemes mentioned in the text.",
+        "Explain how adoption of digital services is described across different regions in the dataset."
+      ]
     },
     {
       "id": "publicgrievances",
       "name": "Public Grievances",
       "description": "Citizen complaints, grievance resolution statistics",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main types of public grievances or complaints described in the documents.",
+        "List key channels or systems used for grievance redressal mentioned in the text.",
+        "Explain how grievance resolution rates or effectiveness are described in the dataset."
+      ]
     },
     {
       "id": "rti",
       "name": "RTI",
       "description": "Right to Information applications, transparency data",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main themes related to Right to Information described in the documents.",
+        "List key statistics or patterns about RTI applications mentioned in the text.",
+        "Explain how transparency or information access issues are described in the dataset."
+      ]
     },
     {
       "id": "digitalpayments",
       "name": "Digital Payments",
       "description": "BHIM transactions, digital payment adoption statistics",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main digital payment trends described in the documents.",
+        "List key platforms or instruments such as BHIM or UPI mentioned in the text.",
+        "Explain how adoption of digital payments is described across different segments in the dataset."
+      ]
     },
     {
       "id": "ruraldevelopment",
       "name": "Rural Development",
       "description": "MGNREGA employment, rural infrastructure, village development",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main rural development themes or programs described in the documents.",
+        "List important schemes such as MGNREGA or rural infrastructure initiatives mentioned in the text.",
+        "Explain how village-level development or rural livelihoods are described in the dataset."
+      ]
     },
     {
       "id": "incometax",
       "name": "Income Tax",
       "description": "Taxpayer statistics, tax collection, income distribution data",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main income tax trends or patterns described in the documents.",
+        "List key statistics about taxpayers or tax collection mentioned in the text.",
+        "Explain how income distribution or tax compliance is described in the dataset."
+      ]
     },
     {
       "id": "judicialreforms",
       "name": "Judicial Reforms",
       "description": "Court digitization, case pendency, judicial efficiency data",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+          "Summarize the main judicial reform initiatives described in the documents.",
+          "List key measures related to court digitization or process changes mentioned in the text.",
+          "Explain how changes in case pendency or judicial efficiency are described in the dataset."
+      ]
     },
     {
       "id": "pmgatishakti",
       "name": "PM Gati Shakti",
       "description": "Infrastructure planning, multimodal connectivity projects",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main PM Gati Shakti or multimodal connectivity themes described in the documents.",
+        "List key infrastructure or logistics projects mentioned in the text.",
+        "Explain how integrated planning or connectivity improvements are described in the dataset."
+      ]
     },
     {
       "id": "cooperatives",
       "name": "Cooperatives",
       "description": "Cooperative societies, NABARD statistics, rural finance",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main cooperative or rural finance themes described in the documents.",
+        "List different types of cooperative societies or activities mentioned in the text.",
+        "Explain how cooperatives contribute to rural finance or development in the dataset."
+      ]
     },
     {
       "id": "fertilizers",
       "name": "Fertilizers",
       "description": "Fertilizer usage, supply chain, agricultural input statistics",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main fertilizer usage or supply themes described in the documents.",
+        "List key fertilizer types, regions, or crops mentioned in the text.",
+        "Explain how fertilizer availability or supply chain challenges are described in the dataset."
+      ]
     },
     {
       "id": "transportaccidents",
       "name": "Transport Accidents",
       "description": "Road accident data, railway accidents, transport safety",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main transport accident trends described in the documents.",
+        "List key statistics about road or rail accidents mentioned in the text.",
+        "Explain how transport safety issues or measures are described in the dataset."
+      ]
     },
     {
       "id": "publicdistribution",
       "name": "Public Distribution",
       "description": "PDS system, ration distribution, food subsidy statistics",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main public distribution system themes described in the documents.",
+        "List key elements of ration distribution or food subsidy mentioned in the text.",
+        "Explain how PDS coverage or leakage issues are described in the dataset."
+      ]
     },
     {
       "id": "statebudgets",
       "name": "State Budgets",
       "description": "State government expenditure, budget allocations, fiscal data",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main state budget or expenditure themes described in the documents.",
+        "List key sectors or schemes receiving major budget allocations mentioned in the text.",
+        "Explain how fiscal balance or spending priorities are described in the dataset."
+      ]
     },
     {
       "id": "academicresearch",
       "name": "Academic Research",
       "description": "University research, academic journals, scholarly publications",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main academic or research themes described in the documents.",
+        "List key universities, fields, or publication types mentioned in the text.",
+        "Explain how research output or impact is described in the dataset."
+      ]
     },
     {
       "id": "customsexcise",
       "name": "Customs & Excise",
       "description": "Import/export statistics, customs revenue, trade data",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main customs or trade-related themes described in the documents.",
+        "List key import or export commodities mentioned in the text.",
+        "Explain how customs revenue or trade patterns are described in the dataset."
+      ]
     },
     {
       "id": "fairsfestivals",
       "name": "Fairs & Festivals",
       "description": "Cultural events, festival tourism, traditional celebrations",
-      "category": "Cultural"
+      "category": "Cultural",
+      "sample_questions": [
+        "Summarize the main fairs or festivals described in the documents.",
+        "List important cultural events or locations mentioned in the text.",
+        "Explain how festival-related tourism or participation is described in the dataset."
+      ]
     },
     {
       "id": "dronedata",
       "name": "Drone Data",
       "description": "Drone permissions, unmanned aerial vehicle usage statistics",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main drone-related themes described in the documents.",
+        "List key uses or applications of drones mentioned in the text.",
+        "Explain how drone permissions or regulatory aspects are described in the dataset."
+      ]
     },
     {
       "id": "itservices",
       "name": "IT Services",
       "description": "Software industry statistics, IT employment, technology growth",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main IT services or software industry themes described in the documents.",
+        "List key regions, companies, or segments highlighted in the text.",
+        "Explain how IT employment or technology growth is described in the dataset."
+      ]
     },
     {
       "id": "climatechange",
       "name": "Climate Change",
       "description": "Carbon emissions, climate data, environmental impact statistics",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the main climate change themes described in the documents.",
+        "List key indicators such as emissions or temperature changes mentioned in the text.",
+        "Explain how climate impacts or risks are described in the dataset."
+      ]
     },
     {
       "id": "animalshelters",
       "name": "Animal Shelters",
       "description": "Stray animal statistics, shelter facilities, animal welfare",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main animal shelter or welfare themes described in the documents.",
+        "List key statistics about shelters or stray animals mentioned in the text.",
+        "Explain how animal care or welfare challenges are described in the dataset."
+      ]
     },
     {
       "id": "privateschools",
       "name": "Private Schools",
       "description": "CBSE/ICSE performance data, private education statistics",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main themes related to private schools described in the documents.",
+        "List key performance or enrollment statistics for CBSE/ICSE schools mentioned in the text.",
+        "Explain how private education trends are described in the dataset."
+      ]
     },
     {
       "id": "mobileappsusage",
       "name": "Mobile Apps Usage",
       "description": "App downloads, mobile application analytics, digital adoption",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main mobile app usage trends described in the documents.",
+        "List key app categories, platforms, or usage metrics mentioned in the text.",
+        "Explain how digital adoption or user behavior is described in the dataset."
+      ]
     },
     {
       "id": "miningminerals",
       "name": "Mining & Minerals",
       "description": "Coal production, mineral extraction, mining industry data",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main mining or minerals-related themes described in the documents.",
+        "List key minerals, regions, or production statistics mentioned in the text.",
+        "Explain how mining output or industry trends are described in the dataset."
+      ]
     },
     {
       "id": "wasteland",
       "name": "Wasteland",
       "description": "Land rehabilitation, wasteland development, soil conservation",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the main wasteland or land rehabilitation themes described in the documents.",
+        "List key regions or projects related to wasteland development mentioned in the text.",
+        "Explain how soil conservation or land restoration efforts are described in the dataset."
+      ]
     },
     {
       "id": "startupincubators",
       "name": "Startup Incubators",
       "description": "Incubation programs, startup funding, entrepreneurship support",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main startup incubation or support themes described in the documents.",
+        "List key incubator programs, institutions, or locations mentioned in the text.",
+        "Explain how startups are supported or funded as described in the dataset."
+      ]
     },
     {
       "id": "cybercrime",
       "name": "Cybercrime",
       "description": "Online crime statistics, cyber complaint data, digital security",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main cybercrime themes or incidents described in the documents.",
+        "List key types of online crimes or complaints mentioned in the text.",
+        "Explain how digital security or enforcement responses are described in the dataset."
+      ]
     },
     {
       "id": "ngodata",
       "name": "NGO Data",
       "description": "Non-profit registrations, NGO funding, civil society statistics",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main NGO or civil society themes described in the documents.",
+        "List key statistics about NGO registrations or funding mentioned in the text.",
+        "Explain how NGOs contribute to development or social welfare as described in the dataset."
+      ]
     },
     {
       "id": "patentdata",
       "name": "Patent Data",
       "description": "Patent applications, intellectual property statistics, innovation data",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main patent or innovation themes described in the documents.",
+        "List key statistics about patent applications or grants mentioned in the text.",
+        "Explain how intellectual property trends or innovation patterns are described in the dataset."
+      ]
     },
     {
       "id": "highereducation",
       "name": "Higher Education",
       "description": "University rankings, higher education enrollment, academic performance",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main higher education themes described in the documents.",
+        "List key indicators such as university rankings or enrollment figures mentioned in the text.",
+        "Explain how academic performance or access to higher education is described in the dataset."
+      ]
     },
     {
       "id": "animalcensus",
       "name": "Animal Census",
       "description": "Livestock population, cattle statistics, animal husbandry data",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main animal census themes described in the documents.",
+        "List key livestock or cattle population statistics mentioned in the text.",
+        "Explain how changes in animal populations are described in the dataset."
+      ]
     },
     {
       "id": "recycling",
       "name": "Recycling",
       "description": "Waste management, plastic recycling, e-waste statistics",
-      "category": "Environment"
+      "category": "Environment",
+      "sample_questions": [
+        "Summarize the main recycling or waste management themes described in the documents.",
+        "List key types of waste or recycling systems mentioned in the text.",
+        "Explain how recycling rates or environmental impacts are described in the dataset."
+      ]
     },
     {
       "id": "postaldata",
       "name": "Postal Data",
       "description": "Post office locations, postal services, mail delivery statistics",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main postal system themes described in the documents.",
+        "List key statistics about post offices or mail delivery mentioned in the text.",
+        "Explain how postal coverage or service performance is described in the dataset."
+      ]
     },
     {
       "id": "handloomtextiles",
       "name": "Handloom & Textiles",
       "description": "Textile exports, handloom production, artisan statistics",
-      "category": "Economic"
+      "category": "Economic",
+      "sample_questions": [
+        "Summarize the main handloom or textile themes described in the documents.",
+        "List key regions, products, or artisan groups mentioned in the text.",
+        "Explain how textile production or export trends are described in the dataset."
+      ]
     },
     {
       "id": "elearning",
       "name": "E-learning",
       "description": "Digital education platforms, online course statistics, educational technology",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main e-learning or digital education themes described in the documents.",
+        "List key platforms, courses, or user statistics mentioned in the text.",
+        "Explain how online learning adoption or outcomes are described in the dataset."
+      ]
     },
     {
       "id": "statetransport",
       "name": "State Transport",
       "description": "State bus statistics, transport permits, regional transportation",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main state transport themes described in the documents.",
+        "List key statistics about state-run buses or routes mentioned in the text.",
+        "Explain how regional transport connectivity or service levels are described in the dataset."
+      ]
     },
     {
       "id": "riverlinking",
       "name": "River Linking",
       "description": "Inter-basin water transfer, irrigation projects, water management",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main river linking or water transfer themes described in the documents.",
+        "List key projects, basins, or regions mentioned in the text.",
+        "Explain how river linking impacts irrigation or water availability as described in the dataset."
+      ]
     },
     {
       "id": "datalocalization",
       "name": "Data Localization",
       "description": "Data governance, cloud infrastructure, digital sovereignty",
-      "category": "Technology"
+      "category": "Technology",
+      "sample_questions": [
+        "Summarize the main data localization or governance themes described in the documents.",
+        "List key policies, regulations, or infrastructure elements mentioned in the text.",
+        "Explain how data sovereignty or compliance requirements are described in the dataset."
+      ]
     },
     {
       "id": "medicalresearch",
       "name": "Medical Research",
       "description": "Clinical trials, medical research statistics, healthcare innovation",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main medical research or clinical trial themes described in the documents.",
+        "List key areas of research, conditions, or innovations mentioned in the text.",
+        "Explain how research outcomes or healthcare innovations are described in the dataset."
+      ]
     },
     {
       "id": "vaccinationstats",
       "name": "Vaccination Stats",
       "description": "Immunization coverage, vaccine distribution, health program data",
-      "category": "Social"
+      "category": "Social",
+      "sample_questions": [
+        "Summarize the main vaccination or immunization themes described in the documents.",
+        "List key coverage or distribution statistics mentioned in the text.",
+        "Explain how vaccination program performance or gaps are described in the dataset."
+      ]
     },
     {
       "id": "trafficviolations",
       "name": "Traffic Violations",
       "description": "Traffic fines, violation statistics, road safety enforcement",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main traffic violation themes described in the documents.",
+        "List key statistics about fines or offences mentioned in the text.",
+        "Explain how road safety enforcement or compliance issues are described in the dataset."
+      ]
     },
     {
       "id": "courtjudgements",
       "name": "Court Judgements",
       "description": "Legal decisions, court rulings, judicial precedents",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main legal decisions or cases described in the documents.",
+        "List important rulings, courts, or legal issues mentioned in the text.",
+        "Explain how judicial precedents or outcomes are described in the dataset."
+      ]
     },
     {
       "id": "energyefficiency",
       "name": "Energy Efficiency",
       "description": "BEE ratings, energy conservation, efficiency standards",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main energy efficiency or conservation themes described in the documents.",
+        "List key standards, ratings, or programs mentioned in the text.",
+        "Explain how improvements in energy efficiency are described in the dataset."
+      ]
     },
     {
       "id": "livelihoodprograms",
       "name": "Livelihood Programs",
       "description": "Rural livelihood schemes, self-help groups, poverty alleviation",
-      "category": "Rural"
+      "category": "Rural",
+      "sample_questions": [
+        "Summarize the main livelihood or poverty alleviation themes described in the documents.",
+        "List key livelihood schemes or self-help group initiatives mentioned in the text.",
+        "Explain how these programs impact rural incomes or resilience as described in the dataset."
+      ]
     },
     {
       "id": "airporttraffic",
       "name": "Airport Traffic",
       "description": "Passenger statistics, cargo movement, airport operations data",
-      "category": "Infrastructure"
+      "category": "Infrastructure",
+      "sample_questions": [
+        "Summarize the main airport traffic themes described in the documents.",
+        "List key statistics about passenger or cargo movement mentioned in the text.",
+        "Explain how airport operations or growth trends are described in the dataset."
+      ]
     },
     {
       "id": "voterawareness",
       "name": "Voter Awareness",
       "description": "Electoral education, voter participation, democracy promotion",
-      "category": "Government"
+      "category": "Government",
+      "sample_questions": [
+        "Summarize the main voter awareness or electoral education themes described in the documents.",
+        "List key campaigns, programs, or initiatives mentioned in the text.",
+        "Explain how voter participation or democratic engagement is described in the dataset."
+      ]
     }
   ]
 }

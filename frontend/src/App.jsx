@@ -14,11 +14,13 @@ import { useAuth } from './hooks/useAuth';
 import { useConversations } from './hooks/useConversations';
 import Payment from './components/Payment';
 
+
 const RAGChatbot = () => {
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
   const [showChatHistory, setShowChatHistory] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+
 
   const {
     user,
@@ -30,6 +32,7 @@ const RAGChatbot = () => {
     getAuthHeaders,
     updateChatLimits
   } = useAuth();
+
 
   const {
     conversations,
@@ -44,6 +47,7 @@ const RAGChatbot = () => {
     fetchConversationMessages
   } = useConversations(getAuthHeaders, isAuthenticated);
 
+
   const {
     messages,
     addMessage,
@@ -51,6 +55,7 @@ const RAGChatbot = () => {
     isLoading,
     setIsLoading
   } = useMessages(currentConversation, conversationMessages);
+
 
   // ✅ Callback to update chat limits from backend response
   const handleChatLimitUpdate = useCallback((newRemaining, newUsed) => {
@@ -66,6 +71,7 @@ const RAGChatbot = () => {
     });
   }, [setChatLimits]);
 
+
   const {
     sendMessage,
     apiEndpoint,
@@ -78,17 +84,20 @@ const RAGChatbot = () => {
     handleChatLimitUpdate
   );
 
+
   const {
     connectionStatus,
     lastError,
     testConnection
   } = useConnectionStatus(apiEndpoint);
 
+
   // ✅ Open upgrade modal
   const handleOpenUpgradeModal = () => {
     console.log('Opening upgrade modal...');
     setShowUpgradeModal(true);
   };
+
 
   // ✅ Handle successful upgrade - refresh user data
   const handleUpgradeSuccess = async () => {
@@ -123,10 +132,12 @@ const RAGChatbot = () => {
     setShowUpgradeModal(false);
   };
 
+
   const handleCloseUpgradeModal = () => {
     console.log('Closing upgrade modal');
     setShowUpgradeModal(false);
   };
+
 
   // ✅ Backup: Old Payment.jsx flow (if you want to keep it)
   const handleUpgrade = () => {
@@ -134,12 +145,15 @@ const RAGChatbot = () => {
     setShowPayment(true);
   };
 
+
   const handlePaymentSuccess = async () => {
     setShowPayment(false);
     await handleUpgradeSuccess();  // Reuse the upgrade success handler
   };
 
+
   const handlePaymentBack = () => setShowPayment(false);
+
 
   // Show old payment page if needed
   if (showPayment) {
@@ -148,8 +162,15 @@ const RAGChatbot = () => {
     );
   }
 
-  const handleSendMessage = async (messageContent) => {
+
+  // ✅ UPDATED: Handle send message with better logging
+  const handleSendMessage = useCallback(async (messageContent) => {
+    console.log('🚀 handleSendMessage called with:', messageContent);
+    console.log('🔍 isAuthenticated:', isAuthenticated);
+    console.log('🔍 currentConversation:', currentConversation);
+    
     if (!isAuthenticated) {
+      console.error('❌ Not authenticated!');
       addMessage({
         id: Date.now(),
         type: 'bot',
@@ -162,11 +183,19 @@ const RAGChatbot = () => {
 
     // ✅ Check chat limits (allow if premium: remaining === -1)
     if (chatLimits && !chatLimits.canChat && chatLimits.remaining !== -1) {
+      console.log('❌ Chat limit reached!');
       handleOpenUpgradeModal();
       return;
     }
 
-    let conversationId = currentConversation?.id || startNewConversation();
+    // ✅ Ensure we have a conversation
+    let conversationId = currentConversation?.id;
+    if (!conversationId) {
+      console.log('📝 Creating new conversation...');
+      conversationId = startNewConversation();
+    }
+    
+    console.log('📌 Using conversation ID:', conversationId);
 
     try {
       const userMessage = {
@@ -176,19 +205,48 @@ const RAGChatbot = () => {
         timestamp: new Date()
       };
       
+      console.log('✅ Adding user message to UI');
       addMessage(userMessage);
+      
+      console.log('✅ Adding message to conversation');
       addMessageToConversation(conversationId, {
         type: 'user',
         content: messageContent,
         timestamp: new Date().toISOString()
       });
       
+      console.log('✅ Sending message to backend');
       await sendMessage(messageContent, conversationId);
       
+      console.log('✅ Message sent successfully!');
     } catch (error) {
-      console.error('Message send error:', error);
+      console.error('❌ Message send error:', error);
     }
-  };
+  }, [
+    isAuthenticated,
+    chatLimits,
+    currentConversation,
+    startNewConversation,
+    addMessage,
+    addMessageToConversation,
+    sendMessage,
+    handleOpenUpgradeModal
+  ]);
+
+
+  // ✅ UPDATED: Send message FIRST, then close sidebar
+  const handleSendQuestionFromLibrary = useCallback(async (question) => {
+    console.log('📝 Sending question from Library:', question);
+    
+    // ✅ Just send the message - Library will close itself
+    await handleSendMessage(question);
+    
+    // ✅ Close SidePanel AFTER message is sent
+    console.log('✅ Closing sidebar');
+    setSidePanelOpen(false);
+  }, [handleSendMessage]);
+
+
 
   const handleSelectConversation = async (conversation) => {
     try {
@@ -199,15 +257,18 @@ const RAGChatbot = () => {
     }
   };
 
+
   const handleNewConversation = () => {
     startNewConversation();
     clearMessages();
   };
 
+
   const handleDeleteConversation = async (conversationId) => {
     await deleteConversation(conversationId);
     if (currentConversation?.id === conversationId) clearMessages();
   };
+
 
   if (!isAuthenticated) {
     return (
@@ -237,9 +298,11 @@ const RAGChatbot = () => {
     );
   }
 
+
   return (
     <div className="flex h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 relative overflow-hidden">
       <BackgroundElements />
+
 
       {showChatHistory && (
         <ChatHistory
@@ -252,6 +315,7 @@ const RAGChatbot = () => {
         />
       )}
 
+
       <SidePanel 
         isOpen={sidePanelOpen} 
         setIsOpen={setSidePanelOpen}
@@ -262,10 +326,10 @@ const RAGChatbot = () => {
         onDeleteConversation={handleDeleteConversation}
         isLoading={conversationsLoading}
         getAuthHeaders={getAuthHeaders}
-        // NEW: Pass premium info to SidePanel
         user={user}
         chatLimits={chatLimits}
         onOpenUpgradeModal={handleOpenUpgradeModal}
+        onSendQuestion={handleSendQuestionFromLibrary}
       />
 
 
@@ -284,7 +348,9 @@ const RAGChatbot = () => {
           chatLimits={chatLimits}
         />
 
+
         <MessageList messages={messages} isLoading={isLoading} user={user} />
+
 
         <InputArea
           onSendMessage={handleSendMessage}
@@ -296,17 +362,19 @@ const RAGChatbot = () => {
         />
       </div>
 
+
       {/* ✅ Razorpay upgrade modal with backend integration */}
       {showUpgradeModal && (
         <UpgradePrompt 
           onClose={handleCloseUpgradeModal}
-          user={user}  // ✅ Pass user object
-          getAuthHeaders={getAuthHeaders}  // ✅ Pass auth headers
-          onUpgradeSuccess={handleUpgradeSuccess}  // ✅ Pass success callback
+          user={user}
+          getAuthHeaders={getAuthHeaders}
+          onUpgradeSuccess={handleUpgradeSuccess}
         />
       )}
     </div>
   );
 };
+
 
 export default RAGChatbot;

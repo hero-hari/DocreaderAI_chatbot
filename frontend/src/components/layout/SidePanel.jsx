@@ -12,10 +12,10 @@ const SidePanel = ({
   onDeleteConversation = null,
   isLoading = false,
   getAuthHeaders,
-  // ✅ NEW: Receive premium props
   user,
   chatLimits,
-  onOpenUpgradeModal
+  onOpenUpgradeModal,
+  onSendQuestion
 }) => {
   const togglePanel = () => setIsOpen(!isOpen);
   const [libraryOpen, setLibraryOpen] = useState(false);
@@ -217,10 +217,10 @@ const SidePanel = ({
           isOpen={libraryOpen}
           onClose={() => setLibraryOpen(false)}
           getAuthHeaders={getAuthHeaders}
-          // ✅ FIXED: Pass premium props
           user={user}
           chatLimits={chatLimits}
           onOpenUpgradeModal={onOpenUpgradeModal}
+          onSendQuestion={onSendQuestion}  // ← ADD THIS
         />
       )}
     </>
