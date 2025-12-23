@@ -181,7 +181,7 @@ const Library = ({
                 📚 Data Library
               </h2>
               {!isPremium && (
-                <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-semibold rounded-full flex items-center gap-1 shadow-md">
+                <span className="px-3 py-1 bg-gradient-to-r from-blue-400 to-blue-500 text-white text-sm font-semibold rounded-full flex items-center gap-1 shadow-md">
                   <Crown size={14} />
                   Premium Only
                 </span>
@@ -391,8 +391,8 @@ const DomainCard = ({ domain, onClick, isPremium, isExpanded, onToggleQuestions,
             Download
           </button>
         ) : (
-          <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500
-                             hover:from-yellow-500 hover:to-orange-600
+          <button className="w-full bg-gradient-to-r from-[#5ac8fa] to-[#007aff] 
+                             hover:from-[#007aff] hover:to-[#005bbb]
                              text-white py-2 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md">
             <Crown size={16} />
             Upgrade to Download
