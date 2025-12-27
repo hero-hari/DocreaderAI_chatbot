@@ -309,3 +309,76 @@ async def delete_conversation(conversation_id: str, current_user: UserInfo):
     except Exception as e:
         logger.error(f"Error deleting conversation: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error deleting conversation: {str(e)}")
+    
+# ============================================
+# RAG-INFO ENDPOINTS
+# ============================================
+
+async def get_rag_info(current_user: UserInfo = Depends(get_current_user)):
+    """Get RAG model configuration details"""
+    try:
+        from app.core.rag_engine import rag_engine
+        from app.config.settings import settings
+        
+        # Get ChromaDB stats
+        try:
+            if rag_engine.vectordb:
+                collection = rag_engine.vectordb._collection
+                doc_count = collection.count()
+            else:
+                doc_count = "Not initialized"
+        except:
+            doc_count = "Unknown"
+        
+        config = {
+            "llm": {
+                "model": settings.LLM_MODEL,
+                "temperature": settings.LLM_TEMPERATURE,
+                "provider": "Groq AI"
+            },
+            "embeddings": {
+                "model": settings.EMBEDDING_MODEL,
+                "type": "Sentence Transformers",
+                "multilingual": True
+            },
+            "retrieval": {
+                "initial_k": settings.RETRIEVAL_K,
+                "fetch_k_multiplier": getattr(settings, "FETCH_K_MULTIPLIER", 10),
+                "min_fetch_k": getattr(settings, "MIN_FETCH_K", 60),
+                "lambda_mult": getattr(settings, "LAMBDA_MULT", 0.2),
+                "search_type": "MMR (Maximal Marginal Relevance)"
+            },
+            "reranker": {
+                "model": getattr(settings, "RERANKER_MODEL", "BAAI/bge-reranker-base"),
+                "top_n": getattr(settings, "RERANKER_TOP_N", 6),
+                "enabled": True
+            },
+            "context": {
+                "max_tokens": getattr(settings, "MAX_CONTEXT_TOKENS", 2500),
+                "fallback_tokens": getattr(settings, "FALLBACK_CONTEXT_TOKENS", 2000),
+                "hard_limit": getattr(settings, "PROMPT_TOKEN_HARD_LIMIT", 5200)
+            },
+            "database": {
+                "type": "ChromaDB",
+                "path": settings.DB_PATH,
+                "document_count": doc_count,
+                "domains": 99
+            },
+            "pipeline": {
+                "multi_query": True,
+                "query_variants": 4,
+                "reranking": True,
+                "token_truncation": True,
+                "text_cleaning": True
+            }
+        }
+        
+        return {
+            "status": "active",
+            "configuration": config,
+            "last_updated": datetime.utcnow().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching RAG info: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

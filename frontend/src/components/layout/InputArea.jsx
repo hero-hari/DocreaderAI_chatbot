@@ -1,3 +1,4 @@
+// components/layout/InputArea.jsx
 import React, { useState, useRef } from 'react';
 import { Send, Loader2, AlertCircle, Lock, Crown } from 'lucide-react';
 
@@ -20,10 +21,10 @@ const InputArea = ({
     chatLimits.canChat;
 
   const getPlaceholderText = () => {
-    if (!isAuthenticated) return "Please log in with Google to start chatting...";
-    else if (!chatLimits.canChat) return "You've used all free chats. Upgrade to continue...";
-    else if (connectionStatus !== 'connected') return "Please check server connection...";
-    else return "Ask me anything about your documents...";
+    if (!isAuthenticated) return "Please log in to start...";
+    else if (!chatLimits.canChat) return "Upgrade to continue...";
+    else if (connectionStatus !== 'connected') return "Connection issue...";
+    else return "Ask me anything...";
   };
 
   const handleSendMessage = () => {
@@ -42,9 +43,9 @@ const InputArea = ({
   const getStatusWarning = () => {
     if (!isAuthenticated) {
       return (
-        <span className="text-yellow-700 flex items-center">
+        <span className="text-yellow-700 flex items-center text-xs">
           <Lock className="w-3 h-3 mr-1" />
-          Login required
+          <span className="hidden sm:inline">Login required</span>
         </span>
       );
     } else if (!chatLimits.canChat) {
@@ -53,23 +54,22 @@ const InputArea = ({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            console.log('🎯 Status warning clicked - opening upgrade modal');
             if (onOpenUpgradeModal) {
               onOpenUpgradeModal();
             }
           }}
-          className="text-blue-700 flex items-center hover:text-blue-800 hover:underline cursor-pointer transition-all"
+          className="text-blue-700 flex items-center hover:text-blue-800 hover:underline text-xs"
           type="button"
         >
           <Crown className="w-3 h-3 mr-1" />
-          <span>Upgrade needed</span>
+          <span className="hidden sm:inline">Upgrade</span>
         </button>
       );
     } else if (connectionStatus !== 'connected') {
       return (
-        <span className="text-red-600 flex items-center">
+        <span className="text-red-600 flex items-center text-xs">
           <AlertCircle className="w-3 h-3 mr-1" />
-          Server disconnected
+          <span className="hidden sm:inline">Disconnected</span>
         </span>
       );
     }
@@ -77,42 +77,44 @@ const InputArea = ({
   };
 
   const getChatLimitInfo = () => {
-  if (!isAuthenticated) return null;
-  
-  const remaining = chatLimits.remaining;
-  
-  // ✅ Premium user (unlimited chats)
-  if (remaining === -1) {
+    if (!isAuthenticated) return null;
+    
+    const remaining = chatLimits.remaining;
+    
+    if (remaining === -1) {
+      return (
+        <span className="text-green-600 text-xs md:text-sm flex items-center gap-1">
+          <Crown className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
+          <span className="font-semibold hidden sm:inline">Unlimited</span>
+        </span>
+      );
+    }
+    
+    if (!chatLimits.canChat) return null;
+    
+    let textColor = 'text-green-600';
+    if (remaining <= 1) textColor = 'text-red-600';
+    else if (remaining <= 2) textColor = 'text-yellow-600';
+    
     return (
-      <span className="text-green-600 text-sm flex items-center gap-1">
-        <Crown className="w-4 h-4 text-yellow-500" />
-        <span className="font-semibold">Unlimited chats</span>
+      <span className={`${textColor} text-xs md:text-sm`}>
+        {remaining} <span className="hidden sm:inline">chat{remaining !== 1 ? 's' : ''}</span>
       </span>
     );
-  }
-  
-  // ✅ Free user with remaining chats
-  if (!chatLimits.canChat) return null;
-  
-  let textColor = 'text-green-600';
-  if (remaining <= 1) textColor = 'text-red-600';
-  else if (remaining <= 2) textColor = 'text-yellow-600';
-  
-  return (
-    <span className={`${textColor} text-sm`}>
-      {remaining} chat{remaining !== 1 ? 's' : ''} remaining
-    </span>
-  );
-};
+  };
 
   return (
     <div className="relative z-10 bg-transparent">
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="flex items-center space-x-4">
+      <div className="max-w-4xl mx-auto p-3 md:p-6">
+        
+        {/* ✅ Input + Button Container */}
+        <div className="flex items-center space-x-2 md:space-x-4">
+          
+          {/* Input Field */}
           <div className="flex-1 relative group">
             <label
               htmlFor="chatInput"
-              className={`absolute left-5 top-2 text-sm transition-all duration-200 ${
+              className={`absolute left-3 md:left-5 top-2 text-xs md:text-sm transition-all duration-200 pointer-events-none ${
                 inputMessage
                   ? 'text-gray-800 -translate-y-3 scale-90 bg-white px-1'
                   : 'text-gray-600 translate-y-2 scale-100'
@@ -133,15 +135,17 @@ const InputArea = ({
                 !chatLimits.canChat ||
                 connectionStatus !== 'connected'
               }
-              className={`w-full px-5 py-3 rounded-2xl backdrop-blur-md bg-white/90 border border-blue-100 
-                         focus:outline-none focus:ring-4 focus:ring-blue-200 text-black font-medium placeholder-transparent
-                         shadow-sm transition-all duration-200 resize-none ${
+              className={`w-full px-3 md:px-5 py-2 md:py-3 rounded-xl md:rounded-2xl 
+                         backdrop-blur-md bg-white/90 border border-blue-100 
+                         focus:outline-none focus:ring-2 md:focus:ring-4 focus:ring-blue-200 
+                         text-black font-medium placeholder-transparent
+                         shadow-sm transition-all duration-200 resize-none text-sm md:text-base ${
                 (!isAuthenticated || !chatLimits.canChat || connectionStatus !== 'connected')
                   ? 'opacity-60 cursor-not-allowed'
                   : 'focus:shadow-lg'
               }`}
               style={{
-                minHeight: '44px',
+                minHeight: '40px',
                 maxHeight: '100px',
                 color: '#000',
                 fontWeight: 500,
@@ -149,55 +153,56 @@ const InputArea = ({
             />
           </div>
 
-          {/* ✅ FIXED: Smart Send/Upgrade Button */}
+          {/* Send Button */}
           <button
             onClick={() => {
-              console.log('Button clicked! chatLimits.canChat:', chatLimits.canChat);
-              
-              // ✅ If no chats remaining, open upgrade modal
               if (!chatLimits.canChat && isAuthenticated) {
-                console.log('🎯 Opening upgrade modal from Send button');
                 if (onOpenUpgradeModal) {
                   onOpenUpgradeModal();
-                } else {
-                  console.error('onOpenUpgradeModal is not defined!');
                 }
               } else {
-                // Normal send message behavior
                 handleSendMessage();
               }
             }}
             disabled={isLoading || !isAuthenticated || connectionStatus !== 'connected'}
-            className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl 
-                      hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed 
-                      transition-all duration-200 flex-shrink-0 shadow-md transform hover:scale-105 active:scale-95"
+            className="p-2 md:p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white 
+                       rounded-xl md:rounded-2xl hover:from-blue-600 hover:to-blue-700 
+                       disabled:opacity-50 disabled:cursor-not-allowed 
+                       transition-all duration-200 flex-shrink-0 shadow-md 
+                       transform hover:scale-105 active:scale-95"
             title={
               !isAuthenticated
                 ? 'Login required'
                 : !chatLimits.canChat
-                ? 'Click to upgrade to premium'
+                ? 'Click to upgrade'
                 : connectionStatus !== 'connected'
-                ? 'Server disconnected'
-                : 'Send message'
+                ? 'Disconnected'
+                : 'Send'
             }
           >
             {isLoading ? (
-              <Loader2 className="w-6 h-6 animate-spin" />
+              <Loader2 className="w-5 h-5 md:w-6 md:h-6 animate-spin" />
             ) : !isAuthenticated ? (
-              <Lock className="w-6 h-6" />
+              <Lock className="w-5 h-5 md:w-6 md:h-6" />
             ) : !chatLimits.canChat ? (
-              <Crown className="w-6 h-6" />
+              <Crown className="w-5 h-5 md:w-6 md:h-6" />
             ) : (
-              <Send className="w-6 h-6" />
+              <Send className="w-5 h-5 md:w-6 md:h-6" />
             )}
           </button>
         </div>
 
-        <div className="flex items-center justify-between mt-3 text-gray-800 text-sm">
-          <p>Press Enter to send, Shift+Enter for new line</p>
-          <div className="flex items-center space-x-4">
+        {/* ✅ Bottom Info - Stack on mobile */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 md:mt-3 
+                        text-gray-800 text-xs md:text-sm space-y-1 sm:space-y-0">
+          
+          {/* Left side - Instructions (hide on tiny screens) */}
+          <p className="hidden md:block">Press Enter to send, Shift+Enter for new line</p>
+          
+          {/* Right side - Status indicators */}
+          <div className="flex items-center justify-between sm:justify-end space-x-2 md:space-x-4">
             {getChatLimitInfo()}
-            <span>{inputMessage.length}/1000</span>
+            <span className="text-xs md:text-sm">{inputMessage.length}/1000</span>
             {getStatusWarning()}
           </div>
         </div>

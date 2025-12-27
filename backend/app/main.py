@@ -8,7 +8,7 @@ from app.models.schemas import (
     ChatRequest, ChatResponse, GoogleTokenRequest, AuthResponse, UserInfo
 )
 from app.api.endpoints import (
-    health_check, chat, debug_question, concise_chat,
+    get_rag_info, health_check, chat, debug_question, concise_chat,
     google_login, get_user_status, check_chat_limits, upgrade_placeholder,
     get_chat_history, get_conversation_messages, delete_conversation
 )
@@ -105,6 +105,15 @@ async def conversation_endpoint(conversation_id: str, current_user: UserInfo = D
 @app.delete("/conversation/{conversation_id}")
 async def delete_conversation_endpoint(conversation_id: str, current_user: UserInfo = Depends(get_current_user)):
     return await delete_conversation(conversation_id, current_user)
+
+# ============================================
+# RAG INFO ROUTE
+# ============================================
+
+# Add this with your other routes
+@app.get("/api/rag-info")
+async def rag_info_endpoint(current_user: UserInfo = Depends(get_current_user)):
+    return await get_rag_info(current_user)
 
 # ============================================
 # DEBUG/TEST ROUTES (Optional)

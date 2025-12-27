@@ -1,3 +1,4 @@
+// components/auth/UpgradePrompt.jsx
 import React from "react";
 import { Crown, MessageCircle, Zap, X } from "lucide-react";
 
@@ -6,7 +7,6 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
 
   const handleUpgrade = async () => {
     try {
-      // ✅ Step 1: Create order on backend
       const orderResponse = await fetch(`${API_URL}/api/payment/create-order`, {
         method: 'POST',
         headers: {
@@ -14,7 +14,7 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
           ...getAuthHeaders()
         },
         body: JSON.stringify({
-          amount: 49900,  // ₹499
+          amount: 49900,
           currency: 'INR'
         })
       });
@@ -25,7 +25,6 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
 
       const { order_id, amount, currency } = await orderResponse.json();
 
-      // ✅ Step 2: Open Razorpay checkout
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: amount,
@@ -35,7 +34,6 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
         description: "Upgrade to Unlimited Chats",
         image: "/logo.png",
         
-        // ✅ Success handler
         handler: async function (response) {
           try {
             console.log('💳 Payment successful, verifying...');
@@ -44,13 +42,12 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                ...getAuthHeaders()  // ✅ JWT contains user identity
+                ...getAuthHeaders()
               },
               body: JSON.stringify({
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                // ✅ REMOVED: user_id (backend gets it from JWT token)
                 amount: amount,
                 currency: currency
               })
@@ -62,7 +59,6 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
               console.log('✅ Payment verified successfully');
               onUpgradeSuccess();
             } else if (result.status === 'already_processed') {
-              // ✅ Handle duplicate payment gracefully
               console.log('⚠️ Payment already processed');
               alert('✅ Payment already verified!\n\nYour premium access is active.');
               onUpgradeSuccess();
@@ -93,12 +89,10 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
 
       const rzp = new window.Razorpay(options);
       
-      // ✅ Payment failure handler
       rzp.on('payment.failed', async function (response) {
         console.error('❌ Payment failed:', response.error);
         
         try {
-          // ✅ Send failure to backend for logging
           await fetch(`${API_URL}/api/payment/payment-failed`, {
             method: 'POST',
             headers: {
@@ -117,7 +111,6 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
             })
           });
           
-          // ✅ Show user-friendly error message
           const errorMessage = getUserFriendlyError(response.error.code, response.error.description);
           alert(`❌ Payment Failed\n\n${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
           
@@ -134,7 +127,6 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
     }
   };
 
-  // ✅ User-friendly error messages
   const getUserFriendlyError = (code, description) => {
     const errors = {
       'BAD_REQUEST_ERROR': 'Invalid payment request. Please try again.',
@@ -170,33 +162,37 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
         onClick={onClose}
       />
 
-      {/* Modal */}
+      {/* ✅ Mobile-Responsive Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="max-w-2xl w-full bg-gradient-to-br from-[#E3F2FD]/90 via-[#BBDEFB]/90 to-[#90CAF9]/90 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl text-center relative animate-fade-in">
+        <div className="max-w-2xl w-full bg-gradient-to-br from-[#E3F2FD]/90 via-[#BBDEFB]/90 to-[#90CAF9]/90 
+                        backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/20 shadow-2xl 
+                        text-center relative animate-fade-in max-h-[90vh] overflow-y-auto">
+          
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-black/70 hover:text-black transition-colors"
+            className="absolute top-4 right-4 text-black/70 hover:text-black transition-colors z-10"
           >
             <X className="w-6 h-6" />
           </button>
 
           {/* Icon */}
-          <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-[#64B5F6] to-[#42A5F5] rounded-full flex items-center justify-center shadow-md">
+          <div className="w-16 h-16 mx-auto mb-4 md:mb-6 bg-gradient-to-r from-[#64B5F6] to-[#42A5F5] 
+                          rounded-full flex items-center justify-center shadow-md">
             <Crown className="w-8 h-8 text-white" />
           </div>
 
-          <h3 className="text-2xl font-bold text-black mb-2">
+          {/* ✅ Responsive heading */}
+          <h3 className="text-xl md:text-2xl font-bold text-black mb-2">
             Upgrade to Premium
           </h3>
 
-          <p className="text-black/70 mb-6">
-            You've used all 3 free chats. Unlock unlimited conversations with
-            our premium plan!
+          <p className="text-sm md:text-base text-black/70 mb-6 px-2">
+            You've used all 3 free chats. Unlock unlimited conversations with our premium plan!
           </p>
 
-          {/* Plans */}
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
+          {/* ✅ Responsive grid - stack on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-8">
             <div className="bg-white/80 rounded-lg p-4 border border-black/10 shadow-sm">
               <div className="flex items-center justify-center mb-2">
                 <MessageCircle className="w-5 h-5 text-[#0288D1] mr-2" />
@@ -206,7 +202,8 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
               <div className="text-black/60 text-sm">Chats per session</div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#90CAF9]/50 to-[#64B5F6]/50 rounded-lg p-4 border border-[#64B5F6]/70 shadow-md">
+            <div className="bg-gradient-to-br from-[#90CAF9]/50 to-[#64B5F6]/50 rounded-lg p-4 
+                            border border-[#64B5F6]/70 shadow-md">
               <div className="flex items-center justify-center mb-2">
                 <Crown className="w-5 h-5 text-yellow-500 mr-2" />
                 <span className="text-black font-semibold">Premium</span>
@@ -219,33 +216,41 @@ const UpgradePrompt = ({ onClose, user, getAuthHeaders, onUpgradeSuccess }) => {
           </div>
 
           {/* Features */}
-          <div className="space-y-3 mb-8 text-black">
+          <div className="space-y-3 mb-6 md:mb-8 text-black text-sm md:text-base">
             <div className="flex items-center justify-center">
-              <Zap className="w-4 h-4 text-yellow-500 mr-2" />
-              <span className="text-sm">Faster response times</span>
+              <Zap className="w-4 h-4 text-yellow-500 mr-2 flex-shrink-0" />
+              <span>Faster response times</span>
             </div>
             <div className="flex items-center justify-center">
-              <MessageCircle className="w-4 h-4 text-[#0288D1] mr-2" />
-              <span className="text-sm">Priority support</span>
+              <MessageCircle className="w-4 h-4 text-[#0288D1] mr-2 flex-shrink-0" />
+              <span>Priority support</span>
             </div>
             <div className="flex items-center justify-center">
-              <Crown className="w-4 h-4 text-[#007AFF] mr-2" />
-              <span className="text-sm">Advanced AI features</span>
+              <Crown className="w-4 h-4 text-[#007AFF] mr-2 flex-shrink-0" />
+              <span>Advanced AI features</span>
             </div>
           </div>
 
-          {/* Buttons */}
+          {/* ✅ Responsive buttons */}
           <div className="space-y-3">
             <button
               onClick={handleUpgrade}
-              className="w-full px-8 py-4 bg-gradient-to-r from-[#64B5F6] to-[#1E88E5] text-white font-semibold rounded-xl hover:from-[#42A5F5] hover:to-[#1976D2] transition-all duration-200 transform hover:scale-105 shadow-lg"
+              className="w-full px-6 md:px-8 py-3 md:py-4 
+                         bg-gradient-to-r from-[#64B5F6] to-[#1E88E5] 
+                         text-white font-semibold rounded-xl 
+                         hover:from-[#42A5F5] hover:to-[#1976D2] 
+                         transition-all duration-200 transform hover:scale-105 shadow-lg
+                         text-sm md:text-base"
             >
               Upgrade for ₹499
             </button>
 
             <button
               onClick={onClose}
-              className="w-full px-8 py-3 bg-white/70 text-black font-medium rounded-xl hover:bg-white/90 transition-colors"
+              className="w-full px-6 md:px-8 py-2 md:py-3 
+                         bg-white/70 text-black font-medium rounded-xl 
+                         hover:bg-white/90 transition-colors
+                         text-sm md:text-base"
             >
               Maybe Later
             </button>
