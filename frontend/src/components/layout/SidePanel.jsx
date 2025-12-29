@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react"; // ✅ ADD useEffect
 import { X, MessageSquarePlus, Search, Trash2, BookOpen } from "lucide-react";
 import Library from "../library/Library";
 
@@ -21,6 +21,18 @@ const SidePanel = ({
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [forceRender, setForceRender] = useState(0); // ✅ ADD THIS
+
+  // ✅ ADD THIS: Force re-render when panel opens on mobile
+  useEffect(() => {
+    if (isOpen) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        setForceRender(prev => prev + 1);
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   const handleNewChat = () => {
     console.log("✅ New Chat clicked!");
@@ -64,7 +76,7 @@ const SidePanel = ({
       >
         <div className="flex flex-col h-full w-72">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50 flex-shrink-0">
             <h2 className="text-lg font-semibold text-gray-800 flex items-center space-x-2">
               <span className="flex items-center">
                 <X
@@ -77,7 +89,7 @@ const SidePanel = ({
           </div>
 
           {/* Top Menu Items */}
-          <div className="flex flex-col p-4 space-y-3 text-gray-700">
+          <div className="flex flex-col p-4 space-y-3 text-gray-700 flex-shrink-0">
             {/* New Chat Button */}
             <button 
               onClick={handleNewChat}
@@ -132,9 +144,9 @@ const SidePanel = ({
             )}
           </div>
 
-          {/* Show search results count */}
-          <div className="px-4 mt-4 text-gray-600 font-semibold text-sm flex items-center justify-between">
-            <span>Chats</span>
+          {/* ✅ CHANGED: Made "Chats" header always visible */}
+          <div className="px-4 py-2 text-gray-600 font-semibold text-sm flex items-center justify-between flex-shrink-0 border-t border-gray-100">
+            <span>Chats {conversations.length > 0 && `(${conversations.length})`}</span>
             {searchTerm && (
               <span className="text-xs text-blue-600">
                 {filteredConversations.length} result{filteredConversations.length !== 1 ? 's' : ''}
@@ -142,8 +154,8 @@ const SidePanel = ({
             )}
           </div>
 
-          {/* Chat History */}
-          <div className="flex-1 overflow-y-auto px-3 mt-2">
+          {/* ✅ CHANGED: Added key prop to force re-render */}
+          <div key={forceRender} className="flex-1 overflow-y-auto px-3 pb-2 min-h-0">
             {isLoading ? (
               <div className="p-3 text-center text-gray-500">
                 <p className="text-sm animate-pulse">Loading conversations...</p>
@@ -163,18 +175,15 @@ const SidePanel = ({
                 )}
               </div>
             ) : (
-              <div>
-                <p className="text-xs font-semibold text-gray-600 mb-2 px-1">
-                  {searchTerm ? 'Search Results' : 'Recent'} ({filteredConversations.length})
-                </p>
+              <>
                 {filteredConversations.map((conv, idx) => (
                   <div
                     key={conv.id || idx}
                     onClick={() => handleSelectConversation(conv)}
-                    className={`p-3 rounded-lg cursor-pointer transition-all group mb-2 flex items-start justify-between ${
+                    className={`p-3 rounded-lg cursor-pointer transition-all group mb-2 ${
                       currentConversation?.id === conv.id
                         ? "bg-blue-100 border border-blue-300"
-                        : "hover:bg-gray-100 border border-transparent"
+                        : "hover:bg-gray-100 border border-transparent hover:border-gray-200"
                     }`}
                   >
                     <div className="flex-1 min-w-0">
@@ -192,12 +201,12 @@ const SidePanel = ({
                     </div>
                   </div>
                 ))}
-              </div>
+              </>
             )}
           </div>
 
           {/* Footer */}
-          <div className="p-3 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 text-center">
+          <div className="p-3 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 text-center flex-shrink-0">
             RAG Chatbot v1.0.0
           </div>
         </div>
@@ -220,7 +229,7 @@ const SidePanel = ({
           user={user}
           chatLimits={chatLimits}
           onOpenUpgradeModal={onOpenUpgradeModal}
-          onSendQuestion={onSendQuestion}  // ← ADD THIS
+          onSendQuestion={onSendQuestion}
         />
       )}
     </>

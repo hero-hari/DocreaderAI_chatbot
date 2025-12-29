@@ -6,9 +6,9 @@
       "description": "Articles, summaries from major news outlets",
       "category": "Media",
       "sample_questions": [
-        "Summarize the key news stories discussed in the articles.",
-        "List the major topics frequently covered by the news sources in this dataset.",
-        "Explain how coverage of a specific event or issue is described across different articles."
+        "what are modes of news distribution in India.",
+        "List the major topics frequently covered by the news sources in India.",
+        "Explain how coverage of a specific event or issue is described across different newspapers of India."
       ]
     },
     {
@@ -18,8 +18,8 @@
       "category": "Entertainment",
       "sample_questions": [
         "Summarize the major IPL seasons or tournaments described in the documents.",
-        "List key players and their performances as discussed in the text.",
-        "Explain important match highlights or turning points mentioned in the dataset."
+        "what are the  traditional sports played in india and brief them.",
+        "Explain about the sports culture in India."
       ]
     },
     {
@@ -28,9 +28,9 @@
       "description": "Voter statistics, election results, and constituency data from ECI",
       "category": "Government",
       "sample_questions": [
-        "Summarize the main factors influencing election outcomes described in the documents.",
+        "Summarize the main factors influencing election outcomes described in India.",
         "List major political parties or alliances mentioned and their roles in recent elections.",
-        "Explain how voter turnout trends are described across different elections in the dataset."
+        "Explain how voter turnout trends are described across different elections in India."
       ]
     },
     {
@@ -39,9 +39,9 @@
       "description": "Crop yield data, agricultural prices, and farming statistics",
       "category": "Rural",
       "sample_questions": [
-        "Summarize the main crops and farming practices discussed in the documents.",
-        "List key challenges faced by farmers as described in the dataset.",
-        "Explain how changes in crop yields or prices are described over time in the texts."
+        "Summarize the main crops and farming practices discussed in India.",
+        "List key challenges faced by farmers as described in India.",
+        "Explain how changes in crop yields or prices are described over time in India."
       ]
     },
     {
@@ -50,9 +50,9 @@
       "description": "Hospital statistics, disease data, and public health information",
       "category": "Social",
       "sample_questions": [
-        "Summarize the major public health issues described in the documents.",
-        "List important healthcare schemes, programs, or policies mentioned in the text.",
-        "Explain how access to healthcare services differs across regions in the dataset."
+        "Summarize the major public health issues described in India.",
+        "List important healthcare schemes, programs, or policies mentioned in India.",
+        "Explain how access to healthcare services differs across regions of India."
       ]
     },
     {
@@ -61,9 +61,9 @@
       "description": "Literacy rates, school statistics, educational infrastructure data",
       "category": "Social",
       "sample_questions": [
-        "Summarize the key educational trends or issues discussed in the documents.",
-        "List the different types of schools or institutions mentioned and their characteristics.",
-        "Explain how literacy or enrollment patterns are described across regions."
+        "Summarize the key educational trends or issues discussed in India.",
+        "List the different types of schools or institutions mentioned and their characteristics in India.",
+        "Explain how literacy or enrollment patterns are described across regions of India."
       ]
     },
     {
@@ -72,9 +72,9 @@
       "description": "Road usage patterns, toll collection, traffic management data",
       "category": "Infrastructure",
       "sample_questions": [
-        "Summarize the main traffic patterns or congestion issues described in the dataset.",
-        "List important roads, corridors, or toll routes discussed in the text.",
-        "Explain the common traffic management measures or policies mentioned in the documents."
+        "Summarize the main traffic patterns or congestion issues described in India.",
+        "List important roads, corridors, or toll routes discussed in the text related to India.",
+        "Explain the common traffic management measures or policies mentioned in India."
       ]
     },
     {
@@ -83,9 +83,9 @@
       "description": "GDP statistics, inflation rates, macroeconomic indicators",
       "category": "Economic",
       "sample_questions": [
-        "Summarize the overall economic trends described in the documents.",
-        "List key macroeconomic indicators mentioned and how they are changing.",
-        "Explain how different sectors of the economy are portrayed in the dataset."
+        "Summarize the overall economic trends described in India.",
+        "List key macroeconomic indicators mentioned and how they are changing in India.",
+        "Explain how different sectors of the economy are portrayed in India."
       ]
     },
     {
@@ -94,9 +94,9 @@
       "description": "UPI transactions, banking data, financial services statistics",
       "category": "Economic",
       "sample_questions": [
-        "Summarize the growth of digital payments or UPI usage described in the text.",
-        "List key statistics or patterns related to banking and financial services.",
-        "Explain how the expansion of digital finance is described in the documents."
+        "Summarize the growth of digital payments or UPI usage described in India.",
+        "List key statistics or patterns related to banking and financial services in India.",
+        "Explain how the expansion of digital finance is described in India."
       ]
     },
     {
@@ -105,9 +105,9 @@
       "description": "Text corpora, translations, linguistic datasets for Indian languages",
       "category": "Technology",
       "sample_questions": [
-        "Summarize the different language resources or corpora described in the dataset.",
-        "List the Indian languages and NLP tasks mentioned in the documents.",
-        "Explain how translation or language processing challenges are described in the text."
+        "What are the NLP developments in India.",
+        "List the Indian languages and NLP tasks by Indian mentioned in the documents.",
+        "Explain how translation or language processing challenges are described in India."
       ]
     },
     {
@@ -116,9 +116,9 @@
       "description": "Rainfall data, temperature records, meteorological information",
       "category": "Environment",
       "sample_questions": [
-        "Summarize the major weather patterns or climate trends described in the documents.",
-        "List key statistics related to rainfall or temperature mentioned in the text.",
-        "Explain how extreme weather events are described in the dataset."
+        "Summarize the major weather patterns or climate trends described in India.",
+        "List key statistics related to rainfall or temperature mentioned in India.",
+        "Explain how extreme weather events are described in India."
       ]
     },
     {
@@ -127,9 +127,9 @@
       "description": "Population demographics, household surveys, demographic statistics",
       "category": "Government",
       "sample_questions": [
-        "Summarize the main demographic patterns or trends described in the documents.",
-        "List important population characteristics such as age, gender, or location mentioned in the text.",
-        "Explain how urban and rural population differences are described in the dataset."
+        "Summarize the main demographic patterns or trends described in India.",
+        "List important population characteristics such as age, gender, or location mentioned in India.",
+        "Explain how urban and rural population differences are described in India."
       ]
     },
     {
@@ -138,9 +138,9 @@
       "description": "Village maps, city boundaries, spatial geographic data",
       "category": "Technology",
       "sample_questions": [
-        "Summarize the types of geographic areas or boundaries described in the documents.",
-        "List different spatial regions such as villages, cities, or districts mentioned in the text.",
-        "Explain how geographic or spatial patterns are described in the dataset."
+        "Summarize the types of geographic areas or boundaries described in the India.",
+        "List different spatial regions such as villages, cities, or districts mentioned in the India.",
+        "Explain how geographic or spatial patterns are described in India."
       ]
     },
     {
@@ -149,9 +149,9 @@
       "description": "FIR data, crime statistics, law enforcement records",
       "category": "Government",
       "sample_questions": [
-        "Summarize the main crime trends or issues discussed in the documents.",
-        "List major categories of crimes or offences described in the dataset.",
-        "Explain how law enforcement actions or responses are portrayed in the text."
+        "Summarize the main crime trends or issues discussed in India .",
+        "List major categories of crimes or offences are there in India.",
+        "Explain how law enforcement actions or responses are taken by Indian Government."
       ]
     },
     {
@@ -160,9 +160,9 @@
       "description": "Pandemic cases, vaccination statistics, health emergency data",
       "category": "Social",
       "sample_questions": [
-        "Summarize the key phases or waves of the COVID-19 pandemic described in the documents.",
-        "List major impacts of COVID-19 on health or society mentioned in the dataset.",
-        "Explain how vaccination efforts or outcomes are described in the text."
+        "Summarize the key phases or waves of the COVID-19 pandemic described in India.",
+        "List major impacts of COVID-19 on health or society in India.",
+        "Explain how vaccination efforts or outcomes are taken by Indian Government and what are best practices are taken ."
       ]
     },
     {
@@ -171,9 +171,9 @@
       "description": "Railway statistics, metro data, public transportation systems",
       "category": "Infrastructure",
       "sample_questions": [
-        "Summarize the main transport systems or projects discussed in the documents.",
-        "List key statistics or observations about rail, metro, or bus transport mentioned in the text.",
-        "Explain how public transportation usage or challenges are described in the dataset."
+        "Summarize the main transport systems or projects in India.",
+        "List key statistics or observations about rail and metro in India.",
+        "Explain how public transportation usage or challenges are faced by Indians."
       ]
     },
     {
@@ -182,9 +182,9 @@
       "description": "Pollution levels, air quality, water quality monitoring data",
       "category": "Environment",
       "sample_questions": [
-        "Summarize the major environmental issues discussed in the documents.",
-        "List key pollutants, indicators, or environmental metrics mentioned in the text.",
-        "Explain how changes in air or water quality are described in the dataset."
+        "Summarize the major environmental issues discussed in India.",
+        "List key pollutants, indicators, or environmental metrics in India.",
+        "Explain how changes in air or water quality are there In India."
       ]
     },
     {
@@ -193,9 +193,9 @@
       "description": "Archaeological sites, monuments, cultural preservation data",
       "category": "Cultural",
       "sample_questions": [
-        "Summarize the important cultural or heritage sites described in the documents.",
-        "List major monuments or archaeological locations mentioned in the text.",
-        "Explain how cultural preservation efforts are described in the dataset."
+        "Summarize the important cultural or heritage sites described in India.",
+        "List major monuments or archaeological locations in southern part of India.",
+        "Explain how cultural preservation efforts are taken by Indian Government."
       ]
     },
     {
@@ -204,9 +204,9 @@
       "description": "Tourist arrivals, hotel occupancy, tourism industry statistics",
       "category": "Economic",
       "sample_questions": [
-        "Summarize the main tourism trends or patterns described in the documents.",
-        "List key destinations or regions highlighted for tourism in the dataset.",
-        "Explain how tourist arrivals or demand patterns are described in the text."
+        "Summarize the main tourism trends or patterns described in India.",
+        "List key unique  destinations or regions highlighted for tourism in India.",
+        "Explain how tourist arrivals or demand patterns are there in India."
       ]
     },
     {
@@ -215,9 +215,9 @@
       "description": "River flow data, reservoir levels, water management systems",
       "category": "Environment",
       "sample_questions": [
-        "Summarize the major water resource issues or themes discussed in the documents.",
-        "List important rivers, reservoirs, or water systems mentioned in the text.",
-        "Explain how water availability or management challenges are described in the dataset."
+        "Summarize the major water resource issues or themes discussed in India.",
+        "List important rivers, reservoirs, or water systems are there in India.",
+        "Explain how water availability or management challenges are faced by India."
       ]
     },
     {
