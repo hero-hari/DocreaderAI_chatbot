@@ -291,8 +291,10 @@ const Library = ({
                 ragInfo={ragInfo}
                 ragLoading={ragLoading}
                 onClick={() => setRagModalOpen(true)}
+                isPremium={isPremium}
+                onUpgradeClick={onOpenUpgradeModal}
               />
-
+              
               {/* Domains Section Header */}
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-black/80 mb-4 flex items-center gap-2">

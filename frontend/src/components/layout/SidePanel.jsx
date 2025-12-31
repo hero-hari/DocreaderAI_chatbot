@@ -1,6 +1,8 @@
-import React, { useState, useMemo, useEffect } from "react"; // ✅ ADD useEffect
-import { X, MessageSquarePlus, Search, Trash2, BookOpen } from "lucide-react";
+import React, { useState, useMemo, useEffect } from "react";
+import { X, MessageSquarePlus, Search, Trash2, BookOpen, FileText } from "lucide-react";
 import Library from "../library/Library";
+import TermsModal from "./TermsModal";
+
 
 const SidePanel = ({ 
   isOpen, 
@@ -20,19 +22,21 @@ const SidePanel = ({
   const togglePanel = () => setIsOpen(!isOpen);
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [termsOpen, setTermsOpen] = useState(false); 
   const [showSearch, setShowSearch] = useState(false);
-  const [forceRender, setForceRender] = useState(0); // ✅ ADD THIS
+  const [forceRender, setForceRender] = useState(0);
 
-  // ✅ ADD THIS: Force re-render when panel opens on mobile
+
+  // Force re-render when panel opens on mobile
   useEffect(() => {
     if (isOpen) {
-      // Small delay to ensure DOM is ready
       const timer = setTimeout(() => {
         setForceRender(prev => prev + 1);
       }, 50);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
+
 
   const handleNewChat = () => {
     console.log("✅ New Chat clicked!");
@@ -41,12 +45,14 @@ const SidePanel = ({
     }
   };
 
+
   const handleSelectConversation = (conversation) => {
     console.log("📌 SidePanel: Selecting conversation:", conversation.id);
     if (onSelectConversation) {
       onSelectConversation(conversation);
     }
   };
+
 
   // Filter conversations based on search term
   const filteredConversations = useMemo(() => {
@@ -59,6 +65,7 @@ const SidePanel = ({
     );
   }, [conversations, searchTerm]);
 
+
   // Toggle search and clear on close
   const handleToggleSearch = () => {
     setShowSearch(!showSearch);
@@ -66,6 +73,7 @@ const SidePanel = ({
       setSearchTerm("");
     }
   };
+
 
   return (
     <>
@@ -88,6 +96,7 @@ const SidePanel = ({
             </h2>
           </div>
 
+
           {/* Top Menu Items */}
           <div className="flex flex-col p-4 space-y-3 text-gray-700 flex-shrink-0">
             {/* New Chat Button */}
@@ -99,6 +108,7 @@ const SidePanel = ({
               <span className="font-medium text-blue-700">New Chat</span>
             </button>
 
+
             {/* Data Library Button */}
             <button 
               onClick={() => setLibraryOpen(true)}
@@ -107,6 +117,7 @@ const SidePanel = ({
               <BookOpen className="w-5 h-5 text-blue-600" />
               <span className="font-medium text-blue-700">Data Library</span>
             </button>
+
 
             {/* Search Button */}
             <button 
@@ -120,6 +131,17 @@ const SidePanel = ({
               <Search className="w-5 h-5 text-blue-600" />
               <span className="font-medium text-blue-700">Search Chats</span>
             </button>
+
+
+            {/* Terms and Conditions Button */}
+            <button 
+              onClick={() => setTermsOpen(true)}
+              className="flex items-center space-x-3 p-2 rounded-md hover:bg-blue-100 transition-all bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200"
+            >
+              <FileText className="w-5 h-5 text-blue-600" />
+              <span className="font-medium text-blue-700">Terms and Conditions</span>
+            </button>
+
 
             {/* Search Input */}
             {showSearch && (
@@ -144,7 +166,8 @@ const SidePanel = ({
             )}
           </div>
 
-          {/* ✅ CHANGED: Made "Chats" header always visible */}
+
+          {/* Chats Header */}
           <div className="px-4 py-2 text-gray-600 font-semibold text-sm flex items-center justify-between flex-shrink-0 border-t border-gray-100">
             <span>Chats {conversations.length > 0 && `(${conversations.length})`}</span>
             {searchTerm && (
@@ -154,7 +177,8 @@ const SidePanel = ({
             )}
           </div>
 
-          {/* ✅ CHANGED: Added key prop to force re-render */}
+
+          {/* Conversations List */}
           <div key={forceRender} className="flex-1 overflow-y-auto px-3 pb-2 min-h-0">
             {isLoading ? (
               <div className="p-3 text-center text-gray-500">
@@ -205,12 +229,14 @@ const SidePanel = ({
             )}
           </div>
 
+
           {/* Footer */}
-          <div className="p-3 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 text-center flex-shrink-0">
-            RAG Chatbot v1.0.0
+          <div className="p-3 border-t border-gray-200 bg-gradient-to-r from-blue-50 to-cyan-50 text-xs text-gray-600 text-center flex-shrink-0 font-medium">
+            ©2025 Punchbiz | All Rights Reserved
           </div>
         </div>
       </div>
+
 
       {/* Overlay for mobile */}
       {isOpen && (
@@ -219,6 +245,7 @@ const SidePanel = ({
           onClick={togglePanel}
         />
       )}
+
 
       {/* Library Modal */}
       {libraryOpen && (
@@ -232,8 +259,18 @@ const SidePanel = ({
           onSendQuestion={onSendQuestion}
         />
       )}
+
+
+      {/* Terms Modal */}
+      {termsOpen && (
+        <TermsModal
+          isOpen={termsOpen}
+          onClose={() => setTermsOpen(false)}
+        />
+      )}
     </>
   );
 };
+
 
 export default SidePanel;
